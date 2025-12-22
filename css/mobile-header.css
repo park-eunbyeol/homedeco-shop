@@ -1,0 +1,79 @@
+/* Mobile Emoji - Default Hidden */
+.mobile-emoji {
+    display: none;
+    margin-right: 8px;
+}
+
+/* Mobile Navigation Styles */
+@media (max-width: 768px) {
+    .mobile-emoji {
+        display: inline-block;
+    }
+
+    .hamburger-btn {
+        display: block !important;
+        margin-left: 15px;
+        order: 3;
+        /* Ensure it's last visually if needed */
+        color: var(--primary-color);
+    }
+
+    .header-icons {
+        margin-left: auto;
+        /* Push icons to right to fill space */
+        order: 2;
+    }
+
+    .logo {
+        order: 1;
+    }
+
+    .main-nav {
+        position: fixed;
+        top: 70px;
+        left: -100%;
+        width: 100%;
+        /* Full width for better mobile experience */
+        height: calc(100vh - 70px);
+        background: white;
+        transition: left 0.3s ease;
+        z-index: 1000;
+        border-top: 1px solid #eee;
+        overflow-y: auto;
+    }
+
+    .main-nav.active {
+        left: 0;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    }
+
+    .main-nav ul {
+        flex-direction: column;
+        padding: 20px;
+        align-items: flex-start;
+        /* Left align items */
+    }
+
+    .main-nav ul li {
+        width: 100%;
+        border-bottom: 1px solid #f5f5f5;
+    }
+
+    .main-nav ul li:last-child {
+        border-bottom: none;
+    }
+
+    .main-nav ul li a {
+        display: flex;
+        align-items: center;
+        padding: 15px 10px;
+        font-size: 16px;
+        color: #333;
+        width: 100%;
+    }
+
+    .main-nav ul li a:hover {
+        background-color: #f9f9f9;
+        color: var(--primary-color);
+    }
+}

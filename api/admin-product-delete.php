@@ -1,0 +1,1 @@
+admin-product-delete.php

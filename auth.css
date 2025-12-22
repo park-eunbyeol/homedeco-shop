@@ -1,0 +1,160 @@
+.auth-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 60px 20px;
+    background: #f8f8f8;
+}
+
+.auth-box {
+    width: 100%;
+    max-width: 420px;
+    background: #ffffff;
+    padding: 35px;
+    border-radius: 10px;
+    box-shadow: 0 6px 18px rgba(0,0,0,0.1);
+}
+
+.auth-box h2 {
+    text-align: center;
+    margin-bottom: 25px;
+    font-size: 26px;
+    font-weight: 600;
+}
+
+.form-group {
+    margin-bottom: 18px;
+}
+
+.form-group label {
+    font-size: 14px;
+    font-weight: 600;
+    display: block;
+    margin-bottom: 6px;
+}
+
+.form-group input {
+    width: 100%;
+    padding: 12px;
+    font-size: 15px;
+    border: 1px solid #dcdcdc;
+    border-radius: 8px;
+}
+
+.btn-primary {
+    width: 100%;
+    padding: 14px;
+    background: #3b7ddd;
+    color: #fff;
+    font-size: 17px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 600;
+    margin-top: 10px;
+}
+
+.btn-primary:hover {
+    background: #356fcc;
+}
+
+.switch-text {
+    text-align: center;
+    margin-top: 18px;
+    font-size: 14px;
+}
+
+.switch-text a {
+    font-weight: 600;
+    text-decoration: underline;
+}
+
+/* 모바일 대응 */
+@media(max-width: 600px) {
+    .auth-box {
+        padding: 25px;
+    }
+    .auth-box h2 {
+        font-size: 22px;
+    }
+}
+/* 소셜 로그인 패널 전체 */
+.social-login-box {
+    width: 100%;
+    max-width: 340px;   /* ▶ 크기 축소 */
+    margin: 25px auto 0 auto;   /* ▶ 가운데 정렬 */
+    text-align: center;
+}
+
+/* 제목 */
+.social-title {
+    font-size: 14px;
+    color: #666;
+    margin-bottom: 12px;
+}
+
+/* 버튼 정렬 */
+.social-btn-wrap {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    width: 100%;
+}
+
+/* 공통 버튼 스타일 */
+.social-btn {
+    display: block;
+    width: 100%;
+    padding: 12px;
+    font-size: 15px;
+    font-weight: 600;
+    border-radius: 8px;
+    text-decoration: none;
+    text-align: center;
+    cursor: pointer;
+}
+
+/* 카카오 */
+.social-btn.kakao {
+    background-color: #FEE500;
+    color: #3A1D1D;
+}
+
+/* 네이버 */
+.social-btn.naver {
+    background-color: #03C75A;
+    color: #fff;
+}
+
+/* 구글 */
+.social-btn.google {
+    background: #fff;
+    color: #444;
+    border: 1px solid #dadce0;
+    position: relative;
+}
+
+/* Google 아이콘 */
+.social-btn.google::before {
+    content: "";
+    position: absolute;
+    left: 14px;
+    top: 50%;
+    width: 16px;
+    height: 16px;
+    transform: translateY(-50%);
+    background: url('https://www.gstatic.com/images/branding/product/1x/gsa_48dp.png') no-repeat center;
+    background-size: contain;
+}
+
+/* 반응형 */
+@media (max-width: 480px) {
+    .social-login-box {
+        max-width: 300px; /* 모바일에서 조금 더 줄임 */
+    }
+
+    .social-btn {
+        font-size: 14px;
+        padding: 11px;
+    }
+}
