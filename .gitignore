@@ -1,0 +1,18 @@
+# Database configuration
+db_config.php
+
+# API and Sensitive config files
+includes/ai_config.php
+api/autoload.php
+
+# Compiled assets
+node_modules/
+vendor/
+
+# OS generated files
+.DS_Store
+Thumbs.db
+
+# IDE files
+.vscode/
+.idea/

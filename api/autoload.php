@@ -5,7 +5,7 @@ use OpenAI\Client;
 
 $ai_products_list = []; // 반드시 초기화
 
-$apiKey = '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';
+$apiKey = 'YOUR_API_KEY_HERE';
 $client = new Client(['api_key' => $apiKey]);
 
 try {
