@@ -19,14 +19,14 @@ try {
 
     // 데이터 조회
     if ($category_id > 0) {
-        $sql = "SELECT product_id, name, price, main_image, stock 
+        $sql = "SELECT product_id, name, price, main_image, stock, created_at 
                 FROM products 
                 WHERE category_id = " . $category_id . " AND is_active = 1 
                 ORDER BY created_at DESC 
                 LIMIT $limit";
     } else {
         // 'new' 또는 카테고리 미지정 시 전체 상품 중 최신순
-        $sql = "SELECT product_id, name, price, main_image, stock 
+        $sql = "SELECT product_id, name, price, main_image, stock, created_at 
                 FROM products 
                 WHERE is_active = 1 
                 ORDER BY created_at DESC 

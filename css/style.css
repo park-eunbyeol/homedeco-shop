@@ -296,6 +296,20 @@ body.page-index .view-all {
     scrollbar-width: none;
 }
 
+@media (max-width: 768px) {
+    .category-tabs {
+        justify-content: flex-start;
+        gap: 10px;
+        padding: 10px 15px 15px;
+    }
+
+    .tab-item {
+        min-width: 120px;
+        padding: 0 20px;
+        height: 60px;
+    }
+}
+
 .category-tabs::-webkit-scrollbar {
     display: none;
 }

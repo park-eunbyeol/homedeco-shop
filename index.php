@@ -104,7 +104,17 @@ require_once 'includes/header.php';
             <!-- 동적으로 로드될 영역 -->
             <div class="product-grid active" id="collection-grid">
                 <?php if (!empty($new_products_data)): ?>
-                    <?php foreach ($new_products_data as $product): ?>
+                    <?php
+                    $now = time();
+                    $new_count = 0;
+                    foreach ($new_products_data as $product):
+                        // 14일 이내 등록 상품만 "NEW"로 간주
+                        $created_time = strtotime($product['created_at']);
+                        $is_new = ($now - $created_time) <= (14 * 24 * 60 * 60);
+                        if (!$is_new)
+                            continue;
+                        $new_count++;
+                        ?>
                         <div class="product-card">
                             <div class="product-image">
                                 <a href="/homedeco-shop/product-detail.php?id=<?= $product['product_id']; ?>">
@@ -127,6 +137,9 @@ require_once 'includes/header.php';
                             </div>
                         </div>
                     <?php endforeach; ?>
+                    <?php if ($new_count === 0): ?>
+                        <div class="no-items">최근 등록된 신상품이 없습니다.</div>
+                    <?php endif; ?>
                 <?php else: ?>
                     <div class="no-items">등록된 상품이 없습니다.</div>
                 <?php endif; ?>
@@ -263,14 +276,28 @@ require_once 'includes/header.php';
                 .then(data => {
                     if (data.success && data.products.length > 0) {
                         let html = '';
+                        const now = Math.floor(Date.now() / 1000);
+                        const fourteenDays = 14 * 24 * 60 * 60;
+                        let visibleCount = 0;
+
                         data.products.forEach(p => {
+                            const createdTime = Math.floor(new Date(p.created_at).getTime() / 1000);
+                            const isNew = (now - createdTime) <= fourteenDays;
+                            
+                            // 'new' 카테고리일 경우, 진짜 신상품이 아니면 건너뜀
+                            if (category === 'new' && !isNew) return;
+                            
+                            visibleCount++;
                             const price = new Intl.NumberFormat('ko-KR').format(p.price);
+                            const badgeHtml = isNew ? `<div class="product-badges"><span class="badge-new">NEW</span></div>` : '';
+                            
                             html += `
                                 <div class="product-card">
                                     <div class="product-image">
                                         <a href="/homedeco-shop/product-detail.php?id=${p.product_id}">
                                             <img src="${p.main_image}" alt="${p.name}" onerror="handleImageError(this)">
                                         </a>
+                                        ${badgeHtml}
                                     </div>
                                     <div class="product-info">
                                         <h3 class="product-name">
@@ -283,7 +310,12 @@ require_once 'includes/header.php';
                                 </div>
                             `;
                         });
-                        grid.innerHTML = html;
+
+                        if (visibleCount > 0) {
+                            grid.innerHTML = html;
+                        } else {
+                            grid.innerHTML = `<div class="no-items">${category === 'new' ? '최근 등록된 신상품이 없습니다.' : '해당 카테고리에 상품이 없습니다.'}</div>`;
+                        }
                         viewAllLink.href = category === 'new' ? '/homedeco-shop/products.php?sort=newest' : `/homedeco-shop/products.php?category=${category}`;
                     } else {
                         grid.innerHTML = '<div class="no-items">해당 카테고리에 상품이 없습니다.</div>';
