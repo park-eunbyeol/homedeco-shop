@@ -117,12 +117,29 @@
                     <input type="text" name="search" placeholder="상품 검색..."
                         value="<?php echo isset($_GET['search']) ? htmlspecialchars($_GET['search']) : ''; ?>" required>
                 </form>
+
+                <?php
+                // 찜하기 및 장바구니 수량 가져오기
+                $wishlist_count = function_exists('get_wishlist_count') ? get_wishlist_count() : 0;
+                $cart_count = function_exists('get_cart_count') ? get_cart_count() : 0;
+                ?>
+
                 <a href="/homedeco-shop/wishlist.php" class="emoji-icon" title="위시리스트"
-                    style="text-decoration: none; color: #444; margin: 0 8px;"><i class="fa-regular fa-heart"
-                        style="font-size: 18px;"></i></a>
+                    style="text-decoration: none; color: #444; margin: 0 8px;">
+                    <i class="fa-regular fa-heart" style="font-size: 18px;"></i>
+                    <?php if ($wishlist_count > 0): ?>
+                        <span class="icon-badge wishlist-count"><?php echo $wishlist_count; ?></span>
+                    <?php endif; ?>
+                </a>
+
                 <a href="/homedeco-shop/cart.php" class="emoji-icon" title="장바구니"
-                    style="text-decoration: none; color: #444; margin: 0 8px;"><i class="fa-solid fa-cart-shopping"
-                        style="font-size: 18px;"></i></a>
+                    style="text-decoration: none; color: #444; margin: 0 8px;">
+                    <i class="fa-solid fa-cart-shopping" style="font-size: 18px;"></i>
+                    <?php if ($cart_count > 0): ?>
+                        <span class="icon-badge cart-count"><?php echo $cart_count; ?></span>
+                    <?php endif; ?>
+                </a>
+
                 <?php if (isset($_SESSION['user_id'])): ?>
                     <a href="/homedeco-shop/mypage.php" class="user-name-link" title="마이페이지" style="margin-left: 10px;">
                         <span class="user-greeting"
