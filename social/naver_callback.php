@@ -96,6 +96,9 @@ if ($result->num_rows > 0) {
     $_SESSION['is_social'] = true;
     $_SESSION['social_provider'] = 'naver';
 
+    // 30일간 유지되는 쿠키 설정 (로그인 유지)
+    setcookie('remember_token', $user['user_id'], time() + (86400 * 30), '/', '', false, true);
+
     redirect('../index.php');
 } else {
     // 신규 회원 -> 자동 가입 처리
@@ -115,6 +118,9 @@ if ($result->num_rows > 0) {
         $_SESSION['name'] = $name;
         $_SESSION['is_social'] = true;
         $_SESSION['social_provider'] = 'naver';
+
+        // 30일간 유지되는 쿠키 설정 (로그인 유지)
+        setcookie('remember_token', $new_user_id, time() + (86400 * 30), '/', '', false, true);
 
         redirect('../index.php');
     } else {
