@@ -1,3 +1,8 @@
+
+
+
+
+
 -- 데이터베이스 생성
 CREATE DATABASE IF NOT EXISTS homedeco_shop CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 USE homedeco_shop;
@@ -10,7 +15,7 @@ CREATE TABLE users (
     name VARCHAR(50) NOT NULL,
     phone VARCHAR(20),
     address TEXT,
-    is_admin TINYINT(1) DEFAULT 0,
+    admin_level TINYINT(1) DEFAULT 0, -- 0: 일반회원, 1: 중간관리자, 2: 최고관리자
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
@@ -169,8 +174,13 @@ INSERT INTO categories (name, description) VALUES
 ('소품', '쿠션, 러그, 액자 등 인테리어 소품');
 
 -- 샘플 관리자 계정 (비밀번호: admin123)
-INSERT INTO users (email, password, name, phone, is_admin) VALUES
-('admin@homedeco.com', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', '관리자', '010-0000-0000', 1);
+-- 중간 관리자
+INSERT INTO users (email, password, name, phone, admin_level) VALUES
+('manager@homedeco.com', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', '중간관리자', '010-1111-2222', 1);
+
+-- 최고 관리자
+INSERT INTO users (email, password, name, phone, admin_level) VALUES
+('admin@homedeco.com', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', '최고관리자', '010-0000-0000', 2);
 
 -- 샘플 상품 데이터
 INSERT INTO products (category_id, name, description, price, stock, main_image, style_tag, color_tag, room_tag) VALUES

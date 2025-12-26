@@ -110,7 +110,7 @@
                     <li><a href="/homedeco-shop/ai-recommend.php">AI 추천</a></li>
                     <li><a href="/homedeco-shop/about.php">소개</a></li>
                     <li><a
-                            href="<?php echo (isset($_SESSION['is_admin']) && $_SESSION['is_admin'] == 1) ? '/homedeco-shop/admin/inquiries-manage.php' : '/homedeco-shop/contact.php'; ?>">문의</a>
+                            href="<?php echo is_admin() ? '/homedeco-shop/admin/index.php' : '/homedeco-shop/contact.php'; ?>">문의</a>
                     </li>
                 </ul>
             </nav>

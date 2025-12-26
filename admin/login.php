@@ -1,15 +1,28 @@
-<?php require_once '../includes/header.php'; ?>
+<?php
+require_once '../includes/db.php';
+require_once '../includes/header.php';
+?>
 
 <div class="auth-page">
     <div class="auth-container">
         <div class="auth-header">
             <h2>관리자 로그인</h2>
+            <?php if (isset($_GET['error'])): ?>
+                <div
+                    style="background: #fee2e2; color: #dc2626; padding: 12px; border-radius: 8px; font-size: 14px; margin-top: 15px; text-align: center; font-weight: 600;">
+                    <?php if ($_GET['error'] == '1'): ?>
+                        이메일 또는 비밀번호가 올바르지 않거나 관리자 계정이 아닙니다.
+                    <?php else: ?>
+                        접근 권한이 없습니다. 관리자 로그인이 필요합니다.
+                    <?php endif; ?>
+                </div>
+            <?php endif; ?>
         </div>
 
         <form action="login_process.php" method="post" class="auth-form">
             <div class="form-group">
                 <label>이메일</label>
-                <input type="email" name="email" placeholder="박은별" required>
+                <input type="email" name="email" placeholder="admin@homedeco.com" required>
             </div>
 
             <div class="form-group">
