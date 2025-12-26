@@ -84,9 +84,19 @@ require_once 'includes/header.php';
                 <p class="social-title">또는 소셜 계정으로 로그인</p>
                 <div class="social-btn-wrap">
                     <a href="social/kakao_login.php" class="social-btn kakao">카카오로 로그인</a>
-                    <a href="social/naver_login.php" class="social-btn naver">네이버로 로그인</a>
+                    <a href="javascript:void(0)" onclick="openNaverLogin()" class="social-btn naver">네이버로 로그인</a>
                 </div>
             </div>
+
+            <script>
+                function openNaverLogin() {
+                    const width = 500;
+                    const height = 700;
+                    const left = (window.screen.width / 2) - (width / 2);
+                    const top = (window.screen.height / 2) - (height / 2);
+                    window.open('social/naver_login.php', 'naverlogin', `width=${width},height=${height},top=${top},left=${left},scrollbars=yes`);
+                }
+            </script>
 
             <div class="form-footer">
                 <p style="margin-top: 30px;">계정이 없으신가요? <a href="register.php">회원가입</a></p>

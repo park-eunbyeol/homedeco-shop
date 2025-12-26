@@ -99,7 +99,11 @@ if ($result->num_rows > 0) {
     // 30일간 유지되는 쿠키 설정 (로그인 유지)
     setcookie('remember_token', $user['user_id'], time() + (86400 * 30), '/', '', false, true);
 
-    redirect('../index.php');
+    echo "<script>
+        window.opener.location.href = '../index.php';
+        window.close();
+    </script>";
+    exit;
 } else {
     // 신규 회원 -> 자동 가입 처리
     // 비밀번호는 랜덤 생성 (로그인할 수 없도록 복잡하게)
@@ -122,7 +126,11 @@ if ($result->num_rows > 0) {
         // 30일간 유지되는 쿠키 설정 (로그인 유지)
         setcookie('remember_token', $new_user_id, time() + (86400 * 30), '/', '', false, true);
 
-        redirect('../index.php');
+        echo "<script>
+            window.opener.location.href = '../index.php';
+            window.close();
+        </script>";
+        exit;
     } else {
         echo "<script>alert('회원가입 처리 중 오류가 발생했습니다.'); location.href='../login.php';</script>";
         exit;
