@@ -146,9 +146,11 @@ $values_json = json_encode(array_column($chart_data, 'value'));
                 <a href="index.php" class="nav-item <?= $current_page == 'dashboard' ? 'active' : '' ?>">
                     <i class="fas fa-chart-line"></i> 대시보드
                 </a>
+                <?php if (is_super_admin()): ?>
                 <a href="statistics.php" class="nav-item <?= $current_page == 'statistics' ? 'active' : '' ?>">
                     <i class="fas fa-chart-bar"></i> 통계 분석
                 </a>
+                <?php endif; ?>
                 <a href="products-manage.php" class="nav-item <?= $current_page == 'products' ? 'active' : '' ?>">
                     <i class="fas fa-box"></i> 상품 관리
                 </a>
@@ -180,7 +182,13 @@ $values_json = json_encode(array_column($chart_data, 'value'));
                 <div class="stat-card">
                     <div class="icon"><i class="fas fa-won-sign"></i></div>
                     <div class="label">총 누적 매출</div>
-                    <div class="value"><?= number_format($stats['total_revenue']) ?></div>
+                    <div class="value">
+                        <?php if (is_super_admin()): ?>
+                            <?= number_format($stats['total_revenue']) ?>
+                        <?php else: ?>
+                            권한 없음
+                        <?php endif; ?>
+                    </div>
                 </div>
                 <div class="stat-card">
                     <div class="icon"><i class="fas fa-users"></i></div>

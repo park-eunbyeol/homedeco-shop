@@ -24,9 +24,9 @@ if ($stmt->num_rows > 0) {
     exit;
 }
 
-// 회원 저장
+// 회원 저장 (기본적으로 중간 관리자로 등록)
 $stmt = $conn->prepare(
-    "INSERT INTO users (name, email, password) VALUES (?, ?, ?)"
+    "INSERT INTO users (name, email, password, admin_level) VALUES (?, ?, ?, 1)"
 );
 $stmt->bind_param("sss", $name, $email, $hashed_pw);
 $stmt->execute();

@@ -9,6 +9,11 @@ if (!is_admin()) {
     redirect('login.php');
 }
 
+if (!is_super_admin()) {
+    echo "<script>alert('최고 관리자 전용 메뉴입니다.'); history.back();</script>";
+    exit;
+}
+
 $page_title = '통계 분석';
 $current_page = 'statistics';
 

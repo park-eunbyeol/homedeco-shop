@@ -220,9 +220,11 @@ $categories = $conn->query("SELECT * FROM categories ORDER BY name");
                 <a href="index.php" class="nav-item <?= $current_page == 'dashboard' ? 'active' : '' ?>">
                     <i class="fas fa-chart-line"></i> 대시보드
                 </a>
+                <?php if (is_super_admin()): ?>
                 <a href="statistics.php" class="nav-item <?= $current_page == 'statistics' ? 'active' : '' ?>">
                     <i class="fas fa-chart-bar"></i> 통계 분석
                 </a>
+                <?php endif; ?>
                 <a href="products-manage.php" class="nav-item <?= $current_page == 'products' ? 'active' : '' ?>">
                     <i class="fas fa-box"></i> 상품 관리
                 </a>
@@ -339,10 +341,12 @@ $categories = $conn->query("SELECT * FROM categories ORDER BY name");
                                                 class="action-btn btn-toggle" title="상태변경">
                                                 <i class="fas fa-power-off"></i>
                                             </button>
+                                            <?php if (is_super_admin()): ?>
                                             <button onclick="deleteProduct(<?= $product['product_id'] ?>)"
                                                 class="action-btn btn-delete" title="삭제">
                                                 <i class="fas fa-trash"></i>
                                             </button>
+                                            <?php endif; ?>
                                         </div>
                                     </td>
                                 </tr>

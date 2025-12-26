@@ -57,6 +57,11 @@ $result = $conn->query($sql);
                 <a href="index.php" class="nav-item <?= $current_page == 'dashboard' ? 'active' : '' ?>">
                     <i class="fas fa-chart-line"></i> 대시보드
                 </a>
+                <?php if (is_super_admin()): ?>
+                    <a href="statistics.php" class="nav-item <?= $current_page == 'statistics' ? 'active' : '' ?>">
+                        <i class="fas fa-chart-bar"></i> 통계 분석
+                    </a>
+                <?php endif; ?>
                 <a href="products-manage.php" class="nav-item <?= $current_page == 'products' ? 'active' : '' ?>">
                     <i class="fas fa-box"></i> 상품 관리
                 </a>
@@ -147,10 +152,12 @@ $result = $conn->query($sql);
                                                 title="답변">
                                                 <i class="fas fa-reply"></i>
                                             </a>
-                                            <button onclick="deleteInquiry(<?= $row['inquiry_id'] ?>)"
-                                                class="action-btn btn-delete" title="삭제">
-                                                <i class="fas fa-trash"></i>
-                                            </button>
+                                            <?php if (is_super_admin()): ?>
+                                                <button onclick="deleteInquiry(<?= $row['inquiry_id'] ?>)"
+                                                    class="action-btn btn-delete" title="삭제">
+                                                    <i class="fas fa-trash"></i>
+                                                </button>
+                                            <?php endif; ?>
                                         </div>
                                     </td>
                                 </tr>

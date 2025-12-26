@@ -94,9 +94,11 @@ if (isset($_GET['action']) && $_GET['action'] == 'reset_orders') {
                 <a href="index.php" class="nav-item <?= $current_page == 'dashboard' ? 'active' : '' ?>">
                     <i class="fas fa-chart-line"></i> 대시보드
                 </a>
-                <a href="statistics.php" class="nav-item <?= $current_page == 'statistics' ? 'active' : '' ?>">
-                    <i class="fas fa-chart-bar"></i> 통계 분석
-                </a>
+                <?php if (is_super_admin()): ?>
+                    <a href="statistics.php" class="nav-item <?= $current_page == 'statistics' ? 'active' : '' ?>">
+                        <i class="fas fa-chart-bar"></i> 통계 분석
+                    </a>
+                <?php endif; ?>
                 <a href="products-manage.php" class="nav-item <?= $current_page == 'products' ? 'active' : '' ?>">
                     <i class="fas fa-box"></i> 상품 관리
                 </a>
@@ -121,11 +123,13 @@ if (isset($_GET['action']) && $_GET['action'] == 'reset_orders') {
         <main class="admin-main">
             <div class="page-title" style="justify-content: space-between;">
                 <div><i class="fas fa-shopping-cart"></i> 주문 관리</div>
-                <button onclick="if(confirm('모든 주문을 초기화하시겠습니까?')) location.href='?action=reset_orders'"
-                    class="btn-delete"
-                    style="padding: 10px 20px; width: auto; height: auto; font-size: 13px; font-weight: 600; border-radius: 8px;">
-                    <i class="fas fa-trash-alt"></i> 전체 초기화
-                </button>
+                <?php if (is_super_admin()): ?>
+                    <button onclick="if(confirm('모든 주문을 초기화하시겠습니까?')) location.href='?action=reset_orders'"
+                        class="btn-delete"
+                        style="padding: 10px 20px; width: auto; height: auto; font-size: 13px; font-weight: 600; border-radius: 8px;">
+                        <i class="fas fa-trash-alt"></i> 전체 초기화
+                    </button>
+                <?php endif; ?>
             </div>
 
             <!-- 필터 및 검색 -->

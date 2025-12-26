@@ -46,6 +46,20 @@ if (!function_exists('is_admin')) {
     }
 }
 
+if (!function_exists('get_admin_level')) {
+    function get_admin_level()
+    {
+        return $_SESSION['admin_level'] ?? 0;
+    }
+}
+
+if (!function_exists('is_super_admin')) {
+    function is_super_admin()
+    {
+        return get_admin_level() >= 2;
+    }
+}
+
 // ==========================
 // 페이지 리다이렉트
 // ==========================

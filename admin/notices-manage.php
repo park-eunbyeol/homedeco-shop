@@ -128,6 +128,11 @@ $notices = $conn->query("SELECT * FROM notices ORDER BY is_important DESC, creat
                 <a href="index.php" class="nav-item <?= $current_page == 'dashboard' ? 'active' : '' ?>">
                     <i class="fas fa-chart-line"></i> 대시보드
                 </a>
+                <?php if (is_super_admin()): ?>
+                    <a href="statistics.php" class="nav-item <?= $current_page == 'statistics' ? 'active' : '' ?>">
+                        <i class="fas fa-chart-bar"></i> 통계 분석
+                    </a>
+                <?php endif; ?>
                 <a href="products-manage.php" class="nav-item <?= $current_page == 'products' ? 'active' : '' ?>">
                     <i class="fas fa-box"></i> 상품 관리
                 </a>
@@ -191,10 +196,12 @@ $notices = $conn->query("SELECT * FROM notices ORDER BY is_important DESC, creat
                                 <td><?= date('Y-m-d', strtotime($notice['created_at'])) ?></td>
                                 <td>
                                     <div class="table-actions">
-                                        <button class="btn-icon" onclick="deleteNotice(<?= $notice['notice_id'] ?>)"
-                                            title="삭제">
-                                            <i class="fas fa-trash-alt"></i>
-                                        </button>
+                                        <?php if (is_super_admin()): ?>
+                                            <button class="btn-icon" onclick="deleteNotice(<?= $notice['notice_id'] ?>)"
+                                                title="삭제">
+                                                <i class="fas fa-trash-alt"></i>
+                                            </button>
+                                        <?php endif; ?>
                                     </div>
                                 </td>
                             </tr>
