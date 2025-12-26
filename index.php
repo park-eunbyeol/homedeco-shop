@@ -336,13 +336,54 @@ require_once 'includes/header.php';
     function downloadCoupon(btn) {
         if (btn.classList.contains('downloaded')) return;
 
+        // 로그인 여부 체크
+        const isLoggedIn = <?php echo is_logged_in() ? 'true' : 'false'; ?>;
+        if (!isLoggedIn) {
+            if (confirm('쿠폰을 받으려면 로그인이 필요합니다. 로그인 페이지로 이동하시겠습니까?')) {
+                location.href = '/homedeco-shop/login.php?redirect=mypage.php#coupons';
+            }
+            return;
+        }
+
+        const card = btn.closest('.coupon-card');
+        const title = card.querySelector('h3').innerText;
+        const condition = card.querySelector('p').innerText;
+        const price = card.querySelector('.coupon-price').innerText;
+        const badge = card.querySelector('.coupon-badge');
+        const badgeColor = badge.style.color || '#3498db';
+
         btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i>';
+
         setTimeout(() => {
+            // localStorage 발급 처리 (mypage.php의 loadMyCoupons와 연동)
+            const myCoupons = JSON.parse(localStorage.getItem('homedeco_my_coupons') || '[]');
+
+            // 중복 발급 방지
+            if (myCoupons.some(c => c.title === title)) {
+                alert('이미 발급된 쿠폰입니다.');
+                btn.innerHTML = '<i class="fas fa-check"></i> 발급완료';
+                btn.classList.add('downloaded');
+                btn.style.background = '#eee';
+                btn.style.color = '#888';
+                return;
+            }
+
+            myCoupons.push({
+                id: Date.now(),
+                title: title,
+                condition: condition,
+                price: price,
+                badgeColor: badgeColor
+            });
+            localStorage.setItem('homedeco_my_coupons', JSON.stringify(myCoupons));
+
             btn.innerHTML = '<i class="fas fa-check"></i> 발급완료';
             btn.classList.add('downloaded');
             btn.style.background = '#eee';
             btn.style.color = '#888';
-            alert('쿠폰이 성공적으로 발급되었습니다! 마이페이지에서 확인하세요.');
+
+            alert('쿠폰이 성공적으로 발급되었습니다! 마이페이지 쿠폰함으로 이동합니다.');
+            location.href = '/homedeco-shop/mypage.php#coupons';
         }, 800);
     }
 </script>
