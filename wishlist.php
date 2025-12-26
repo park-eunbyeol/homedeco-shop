@@ -71,7 +71,7 @@ require_once 'includes/header.php';
                                 <button class="btn btn-primary btn-block add-to-cart-btn"
                                     data-product-id="<?php echo $item['product_id']; ?>"
                                     onclick="addToCart(<?php echo $item['product_id']; ?>)">
-                                    <i class="fas fa-shopping-cart"></i> 장바구니 담기
+                                    장바구니 담기
                                 </button>
                             <?php else: ?>
                                 <button class="btn btn-secondary btn-block" disabled>품절</button>
