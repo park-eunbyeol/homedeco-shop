@@ -166,7 +166,7 @@ require_once 'includes/header.php';
 
             <!-- 2. 무료배송 -->
             <div class="coupon-card">
-                <div class="coupon-badge" style="background: #2ecc71;">SHIPPING</div>
+                <div class="coupon-badge" style="color: #2ecc71;">SHIPPING</div>
                 <div class="coupon-content">
                     <h3>배송비 0원 쿠폰</h3>
                     <p>3만원 이상 구매 시 무료배송</p>
@@ -182,7 +182,7 @@ require_once 'includes/header.php';
 
             <!-- 3. 깜짝 할인 -->
             <div class="coupon-card">
-                <div class="coupon-badge" style="background: #e67e22;">SPECIAL</div>
+                <div class="coupon-badge" style="color: #e67e22;">SPECIAL</div>
                 <div class="coupon-content">
                     <h3>깜짝 할인 쿠폰</h3>
                     <p>5만원 이상 구매 시 즉시 할인</p>
@@ -198,7 +198,7 @@ require_once 'includes/header.php';
 
             <!-- 4. 재구매 감사 -->
             <div class="coupon-card">
-                <div class="coupon-badge" style="background: #9b59b6;">THANK YOU</div>
+                <div class="coupon-badge" style="color: #9b59b6;">THANK YOU</div>
                 <div class="coupon-content">
                     <h3>재구매 감사 쿠폰</h3>
                     <p>마지막 주문 후 30일 이내 재구매</p>

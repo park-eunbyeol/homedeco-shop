@@ -1246,16 +1246,16 @@ textarea:focus {
 }
 
 .coupon-badge {
-    background: #3498db;
-    color: white;
-    font-size: 10px;
+    background: transparent;
+    color: #3498db;
+    font-size: 11px;
     font-weight: 800;
-    padding: 4px 10px;
-    border-radius: 20px;
+    padding: 0;
     position: absolute;
     top: 15px;
     left: 15px;
     text-transform: uppercase;
+    letter-spacing: 1px;
 }
 
 .coupon-content {

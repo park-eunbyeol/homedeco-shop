@@ -46,7 +46,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 require_once 'includes/header.php';
 ?>
 
-<link rel="stylesheet" href="auth.css">
+<link rel="stylesheet" href="css/auth.css">
 <style>
     .lookup-container {
         max-width: 450px;

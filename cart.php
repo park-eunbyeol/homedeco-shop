@@ -31,7 +31,7 @@ if (!$is_guest) {
 require_once 'includes/header.php';
 ?>
 
-<link rel="stylesheet" href="cart.css">
+<link rel="stylesheet" href="css/cart.css">
 
 <div class="container">
     <div class="page-header">

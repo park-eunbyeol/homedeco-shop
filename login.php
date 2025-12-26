@@ -13,7 +13,7 @@ $success = $_GET['success'] ?? '';
 require_once 'includes/header.php';
 ?>
 
-<link rel="stylesheet" href="auth.css">
+<link rel="stylesheet" href="css/auth.css">
 
 <div class="auth-container single">
     <style>
