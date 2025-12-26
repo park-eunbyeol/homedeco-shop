@@ -1,7 +1,6 @@
 <?php
 $page_title = '브랜드 소개';
-session_start();
-require_once 'includes/functions.php';
+require_once 'includes/db.php';
 require_once 'includes/header.php';
 ?>
 
