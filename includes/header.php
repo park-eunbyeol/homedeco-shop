@@ -109,9 +109,7 @@
                     <li><a href="/homedeco-shop/products.php">상품</a></li>
                     <li><a href="/homedeco-shop/ai-recommend.php">AI 추천</a></li>
                     <li><a href="/homedeco-shop/about.php">브랜드 소개</a></li>
-                    <li><a
-                            href="<?php echo is_admin() ? '/homedeco-shop/admin/index.php' : '/homedeco-shop/contact.php'; ?>">문의</a>
-                    </li>
+                    <li><a href="/homedeco-shop/contact.php">문의</a></li>
                 </ul>
             </nav>
             <div class="header-icons">
