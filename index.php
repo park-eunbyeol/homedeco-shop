@@ -283,14 +283,14 @@ require_once 'includes/header.php';
                         data.products.forEach(p => {
                             const createdTime = Math.floor(new Date(p.created_at).getTime() / 1000);
                             const isNew = (now - createdTime) <= fourteenDays;
-                            
+
                             // 'new' 카테고리일 경우, 진짜 신상품이 아니면 건너뜀
                             if (category === 'new' && !isNew) return;
-                            
+
                             visibleCount++;
                             const price = new Intl.NumberFormat('ko-KR').format(p.price);
-                            const badgeHtml = isNew ? `<div class="product-badges"><span class="badge-new">NEW</span></div>` : '';
-                            
+                            const badgeHtml = (category === 'new' && isNew) ? `<div class="product-badges"><span class="badge-new">NEW</span></div>` : '';
+
                             html += `
                                 <div class="product-card">
                                     <div class="product-image">
