@@ -140,16 +140,22 @@ $values_json = json_encode(array_column($chart_data, 'value'));
         <aside class="admin-sidebar">
             <div class="sidebar-header">
                 <i class="fas fa-crown"></i>
-                <h3>관리자 메뉴</h3>
+                <div style="text-align: left;">
+                    <h3 style="margin-bottom: 5px;">관리자 메뉴</h3>
+                    <span
+                        style="font-size: 11px; background: rgba(255,255,255,0.2); padding: 2px 8px; border-radius: 10px; font-weight: 500;">
+                        <?= is_super_admin() ? '최고 관리자' : '중간 관리자' ?>
+                    </span>
+                </div>
             </div>
             <nav class="admin-nav">
                 <a href="index.php" class="nav-item <?= $current_page == 'dashboard' ? 'active' : '' ?>">
                     <i class="fas fa-chart-line"></i> 대시보드
                 </a>
                 <?php if (is_super_admin()): ?>
-                <a href="statistics.php" class="nav-item <?= $current_page == 'statistics' ? 'active' : '' ?>">
-                    <i class="fas fa-chart-bar"></i> 통계 분석
-                </a>
+                    <a href="statistics.php" class="nav-item <?= $current_page == 'statistics' ? 'active' : '' ?>">
+                        <i class="fas fa-chart-bar"></i> 통계 분석
+                    </a>
                 <?php endif; ?>
                 <a href="products-manage.php" class="nav-item <?= $current_page == 'products' ? 'active' : '' ?>">
                     <i class="fas fa-box"></i> 상품 관리
@@ -173,8 +179,16 @@ $values_json = json_encode(array_column($chart_data, 'value'));
 
         <!-- 메인 콘텐츠 -->
         <main class="admin-main">
-            <div class="page-title">
-                <i class="fas fa-chart-line"></i> 대시보드
+            <div class="page-title" style="display: flex; justify-content: space-between; align-items: center;">
+                <div><i class="fas fa-chart-line"></i> 대시보드</div>
+                <div style="font-size: 14px; color: #64748b;">
+                    <strong
+                        style="color: var(--primary-color);"><?= htmlspecialchars($_SESSION['admin_name']) ?></strong>
+                    님은
+                    <span style="color: <?= is_super_admin() ? '#e74c3c' : '#3498db' ?>; font-weight: 700;">
+                        [<?= is_super_admin() ? '최고 관리자' : '중간 관리자' ?>]
+                    </span> 등급입니다.
+                </div>
             </div>
 
             <!-- 통계 -->
@@ -214,27 +228,27 @@ $values_json = json_encode(array_column($chart_data, 'value'));
                 <a href="products-manage.php" class="admin-menu-card">
                     <i class="fas fa-boxes"></i>
                     <h3>상품 관리</h3>
-                    <p>상품 등록, 수정 및 재고 관리</p>
+                    <p><?= is_super_admin() ? '상품 등록부터 <b>영구 삭제</b>까지 총괄' : '상품 등록 및 판매 상태(ON/OFF) 관리' ?></p>
                 </a>
                 <a href="orders-manage.php" class="admin-menu-card">
                     <i class="fas fa-receipt"></i>
                     <h3>주문 관리</h3>
-                    <p>결제 내역 및 주문 상태 관리</p>
+                    <p><?= is_super_admin() ? '주문 내역 확인 및 <b>전체 초기화</b> 권한' : '주문 내역 확인 및 결제 상태 업데이트' ?></p>
                 </a>
                 <a href="inquiries-manage.php" class="admin-menu-card">
                     <i class="fas fa-headset"></i>
                     <h3>문의 관리</h3>
-                    <p>고객 문의 답변 및 상담 관리</p>
+                    <p><?= is_super_admin() ? '고객 문의 대응 및 불필요한 게시글 <b>삭제</b>' : '고객 문의 확인 및 성실한 답변 작성' ?></p>
                 </a>
                 <a href="import-products.php" class="admin-menu-card">
                     <i class="fas fa-cloud-download-alt"></i>
                     <h3>상품 가져오기</h3>
-                    <p>외부 API 연동 상품 일괄 등록</p>
+                    <p>외부 API 연동 상품 일괄 등록실행</p>
                 </a>
                 <a href="notices-manage.php" class="admin-menu-card">
                     <i class="fas fa-bullhorn" style="color: #ff9f43;"></i>
                     <h3>공지사항 관리</h3>
-                    <p>공지사항 및 이벤트 등록/삭제</p>
+                    <p><?= is_super_admin() ? '중요 공지 등록 및 <b>공지글 삭제</b>' : '유용한 정보 및 이벤트 공지 등록' ?></p>
                 </a>
             </div>
         </main>
