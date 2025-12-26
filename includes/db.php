@@ -82,7 +82,7 @@ if (!function_exists('get_cart_count')) {
             if (!$conn)
                 return 0;
             $user_id = $_SESSION['user_id'];
-            $stmt = $conn->prepare("SELECT SUM(quantity) as total FROM cart WHERE user_id=?");
+            $stmt = $conn->prepare("SELECT SUM(quantity) as total FROM cart_items WHERE user_id=?");
             $stmt->bind_param("i", $user_id);
             $stmt->execute();
             $result = $stmt->get_result()->fetch_assoc();
