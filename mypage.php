@@ -485,109 +485,7 @@ require_once 'includes/header.php';
     </div>
 </div>
 
-<style>
-    /* 모달 스타일 */
-    .modal-overlay {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background: rgba(0, 0, 0, 0.5);
-        z-index: 2000;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-    }
 
-    .tracking-modal {
-        background: white;
-        width: 90%;
-        max-width: 500px;
-        border-radius: 12px;
-        overflow: hidden;
-        animation: slideUp 0.3s ease;
-    }
-
-    .tracking-modal .modal-header {
-        padding: 20px;
-        border-bottom: 1px solid #eee;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-    }
-
-    .tracking-modal .modal-header h3 {
-        margin: 0;
-        font-size: 18px;
-        color: #333;
-    }
-
-    .tracking-modal .close-btn {
-        background: none;
-        border: none;
-        font-size: 24px;
-        cursor: pointer;
-        color: #999;
-    }
-
-    .tracking-modal .modal-body {
-        padding: 20px;
-        max-height: 60vh;
-        overflow-y: auto;
-    }
-
-    .tracking-timeline {
-        margin-top: 20px;
-        padding-left: 10px;
-        border-left: 2px solid #eee;
-        margin-left: 10px;
-    }
-
-    .tracking-step {
-        position: relative;
-        padding-left: 20px;
-        padding-bottom: 25px;
-    }
-
-    .tracking-step::before {
-        content: '';
-        position: absolute;
-        left: -6px;
-        top: 5px;
-        width: 10px;
-        height: 10px;
-        border-radius: 50%;
-        background: #ddd;
-        border: 2px solid #fff;
-    }
-
-    .tracking-step.active::before {
-        background: var(--primary-color);
-    }
-
-    .tracking-step:last-child {
-        padding-bottom: 0;
-    }
-
-    .tracking-step h4 {
-        margin: 0 0 5px;
-        font-size: 15px;
-        color: #333;
-    }
-
-    .tracking-step p {
-        margin: 0;
-        font-size: 13px;
-        color: #777;
-    }
-
-    .tracking-step .time {
-        font-size: 12px;
-        color: #999;
-        margin-top: 2px;
-    }
-</style>
 
 <script>
     function openTracking(orderId) {
@@ -1045,98 +943,98 @@ require_once 'includes/header.php';
         background: #f9f9f9;
     }
 
-    @media (max-width: 768px) {
-        .wishlist-grid {
-            grid-template-columns: repeat(2, 1fr);
-            gap: 15px;
-        }
+    /* ============================================================
+       모바일 반응형 레이아웃 (768px 이하)
+       ============================================================ */
+    @media screen and (max-width: 768px) {
 
-        /* 모바일 전체 레이아웃 조정 */
+        /* 마이페이지 레이아웃 한 줄로 */
         .mypage-layout {
-            gap: 20px;
-            margin: 20px 0;
+            display: block !important;
+            margin: 10px 0 !important;
         }
 
-        /* 1. 상단 프로필 영역 개선 */
+        .mypage-sidebar {
+            width: 100% !important;
+            position: static !important;
+            margin-bottom: 20px !important;
+        }
+
+        /* 상단 프로필 */
         .user-profile {
             display: flex !important;
-            flex-direction: row !important;
             align-items: center !important;
+            padding: 15px !important;
+            background: #fff !important;
+            border: 1px solid #f0f0f0 !important;
+            border-radius: 12px !important;
+            margin-bottom: 15px !important;
             text-align: left !important;
-            gap: 15px !important;
-            padding: 20px !important;
-            background: #fff;
-            border-radius: 12px;
-            border: 1px solid #f0f0f0;
         }
 
         .user-avatar {
-            margin: 0 !important;
-            width: 55px !important;
-            height: 55px !important;
-            font-size: 22px !important;
+            margin: 0 15px 0 0 !important;
+            width: 50px !important;
+            height: 50px !important;
+            font-size: 20px !important;
             flex-shrink: 0;
         }
 
         .user-profile h3 {
             font-size: 18px !important;
-            margin: 0 0 2px 0 !important;
+            margin: 0 !important;
         }
 
         .user-profile p {
             font-size: 13px !important;
             margin: 0 !important;
-            color: #888;
         }
 
-        /* 2. 내비게이션 메뉴 그리드 - 2열 고정 및 항목 가시성 확보 */
+        /* 내비게이션 그리드 (390px 최적화) */
         .mypage-nav {
             display: grid !important;
-            grid-template-columns: repeat(2, 1fr) !important;
+            grid-template-columns: 1fr 1fr !important;
             gap: 10px !important;
-            background: transparent !important;
+            background: none !important;
             border: none !important;
             padding: 0 !important;
             margin: 20px 0 !important;
         }
 
+        /* 내비게이션 링크 - 모든 항목 가시성 확보 */
         .nav-link {
             background: #ffffff !important;
-            border: 1px solid #eee !important;
-            border-radius: 12px !important;
-            padding: 18px 10px !important;
+            border: 1px solid #ddd !important;
+            border-radius: 10px !important;
+            padding: 12px 5px !important;
             display: flex !important;
             flex-direction: column !important;
             align-items: center !important;
             justify-content: center !important;
-            gap: 8px !important;
+            gap: 5px !important;
+            height: 80px !important;
             text-decoration: none !important;
-            height: auto !important;
-            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.03) !important;
-            transition: all 0.2s ease !important;
+            /* 글자색/가시성 강제 */
+            color: #333 !important;
+            opacity: 1 !important;
+            visibility: visible !important;
         }
 
-        /* 비활성 링크 텍스트/아이콘 색상 강제 지정 */
-        .nav-link,
-        .nav-link span,
+        /* 아이콘 - 폰트웨이트 900 고정 (아이콘 깨짐 방지) */
         .nav-link i {
-            color: #444 !important;
-            font-size: 13px !important;
-            font-weight: 500 !important;
-        }
-
-        .nav-link i {
+            display: block !important;
             font-size: 20px !important;
-            color: #666 !important;
+            font-weight: 900 !important;
+            /* FontAwesome Solid 필수 */
+            color: #555 !important;
             margin: 0 !important;
             width: auto !important;
-            display: block !important;
         }
 
-        /* 활성 상태 (브라운 색상 유지) */
+        /* 활성 탭 (브라운 컬러) */
         .nav-link.active {
-            background: var(--secondary-color) !important;
-            border-color: var(--secondary-color) !important;
+            background: #8b7355 !important;
+            border-color: #8b7355 !important;
         }
 
         .nav-link.active,
@@ -1144,22 +1042,22 @@ require_once 'includes/header.php';
             color: #ffffff !important;
         }
 
-        /* 로그아웃 버튼 별도 스타일 */
+        /* 로그아웃 (레드) */
         .mobile-only-logout {
             display: flex !important;
-            border-color: #ffeaea !important;
+            color: #e74c3c !important;
+            border-color: #ffcccc !important;
         }
 
-        .mobile-only-logout i,
-        .mobile-only-logout {
+        .mobile-only-logout i {
             color: #e74c3c !important;
         }
 
-        /* 주문 현황 및 카드 레이아웃 */
+        /* 기타 모바일 레이아웃 */
         .order-header {
             flex-direction: column;
             align-items: flex-start;
-            gap: 8px;
+            gap: 10px;
         }
 
         .order-body {
@@ -1169,13 +1067,16 @@ require_once 'includes/header.php';
 
         .cart-item-row {
             flex-direction: column !important;
-            align-items: flex-start !important;
             padding: 15px !important;
         }
 
-        .cart-summary {
-            text-align: center !important;
-            padding: 15px !important;
+        .stats-grid {
+            grid-template-columns: 1fr 1fr !important;
+            gap: 10px !important;
+        }
+
+        .stat-card {
+            padding: 12px !important;
         }
     }
 
@@ -1326,67 +1227,397 @@ require_once 'includes/header.php';
         color: #666;
     }
 
-    .coupon-info h5 {
-        margin: 0 0 10px;
+    /* 모달 스타일 (통합) */
+    .modal-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.5);
+        z-index: 2000;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .tracking-modal {
+        background: white;
+        width: 90%;
+        max-width: 500px;
+        border-radius: 12px;
+        overflow: hidden;
+        animation: slideUp 0.3s ease;
+    }
+
+    .tracking-modal .modal-header {
+        padding: 20px;
+        border-bottom: 1px solid #eee;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .tracking-modal .modal-header h3 {
+        margin: 0;
+        font-size: 18px;
         color: #333;
     }
 
-    @media (max-width: 576px) {
+    .tracking-modal .close-btn {
+        background: none;
+        border: none;
+        font-size: 24px;
+        cursor: pointer;
+        color: #999;
+    }
+
+    .tracking-modal .modal-body {
+        padding: 20px;
+        max-height: 60vh;
+        overflow-y: auto;
+    }
+
+    .tracking-timeline {
+        margin-top: 20px;
+        padding-left: 10px;
+        border-left: 2px solid #eee;
+        margin-left: 10px;
+    }
+
+    .tracking-step {
+        position: relative;
+        padding-left: 20px;
+        padding-bottom: 25px;
+    }
+
+    .tracking-step::before {
+        content: '';
+        position: absolute;
+        left: -6px;
+        top: 5px;
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+        background: #ddd;
+        border: 2px solid #fff;
+    }
+
+    .tracking-step.active::before {
+        background: var(--primary-color);
+    }
+
+    .tracking-step:last-child {
+        padding-bottom: 0;
+    }
+
+    .tracking-step h4 {
+        margin: 0 0 5px;
+        font-size: 15px;
+        color: #333;
+    }
+
+    .tracking-step p {
+        margin: 0;
+        font-size: 13px;
+        color: #777;
+    }
+
+    .tracking-step .time {
+        font-size: 12px;
+        color: #999;
+        margin-top: 2px;
+    }
+
+    /* ============================================================
+       [최종] 모바일 반응형 디자인 (390px, iPhone/Galaxy 등 최적화)
+       ============================================================ */
+    @media screen and (max-width: 500px) {
+
+        /* 상단 네비게이션바 간접 수정 차단 */
+        .header {
+            display: block !important;
+        }
+
+        /* 마이페이지 레이아웃 초기화 */
+        .mypage-layout {
+            display: flex !important;
+            flex-direction: column !important;
+            gap: 15px !important;
+            margin: 10px 0 !important;
+            padding: 0 5px !important;
+        }
+
+        .mypage-sidebar {
+            width: 100% !important;
+            position: static !important;
+            margin: 0 !important;
+        }
+
+        /* 1. 프로필 카드 */
+        .user-profile {
+            display: flex !important;
+            flex-direction: row !important;
+            align-items: center !important;
+            padding: 15px !important;
+            background: #fff !important;
+            border: 1px solid #f0f0f0 !important;
+            border-radius: 12px !important;
+            margin-bottom: 15px !important;
+            text-align: left !important;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.02) !important;
+        }
+
+        .user-avatar {
+            width: 50px !important;
+            height: 50px !important;
+            margin: 0 15px 0 0 !important;
+            font-size: 20px !important;
+            flex-shrink: 0;
+        }
+
+        .user-profile h3 {
+            font-size: 17px !important;
+            font-weight: 700 !important;
+            margin: 0 0 2px 0 !important;
+            color: #333 !important;
+        }
+
+        .user-profile p {
+            font-size: 12px !important;
+            margin: 0 !important;
+            color: #999 !important;
+        }
+
+        /* 2. 내비게이션 메뉴 그리드 - 2열 균등 배치 */
         .mypage-nav {
-            grid-template-columns: repeat(2, 1fr) !important;
+            display: grid !important;
+            grid-template-columns: 1fr 1fr !important;
+            grid-auto-rows: 1fr !important;
+            gap: 10px !important;
+            background: none !important;
+            border: none !important;
+            padding: 0 !important;
         }
 
-        .stat-card {
-            padding: 15px;
-            gap: 10px;
+        /* 아이콘/텍스트 안보이는 문제 해결을 위한 강제 스타일 */
+        .nav-link {
+            display: flex !important;
+            flex-direction: column !important;
+            align-items: center !important;
+            justify-content: center !important;
+            background: #ffffff !important;
+            border: 1px solid #eeeeee !important;
+            border-radius: 12px !important;
+            padding: 15px 5px !important;
+            margin: 0 !important;
+            text-decoration: none !important;
+            height: 85px !important;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04) !important;
+            transition: none !important;
+            position: relative !important;
+            overflow: visible !important;
+            opacity: 1 !important;
+            visibility: visible !important;
         }
 
-        .stat-icon {
-            width: 45px;
-            height: 45px;
-            font-size: 20px;
+        /* 글자색 강제 고정 (안보이는 문제 해결) */
+        .nav-link,
+        .nav-link span {
+            color: #333333 !important;
+            font-size: 12px !important;
+            font-weight: 600 !important;
+            line-height: 1.2 !important;
+            text-align: center !important;
         }
 
-        .stat-info h3 {
-            font-size: 18px;
+        /* 아이콘 깨짐 방지: FontAwesome 권장설정(900/Solid) */
+        .nav-link i {
+            display: block !important;
+            font-family: "Font Awesome 6 Free" !important;
+            font-weight: 900 !important;
+            font-style: normal !important;
+            font-size: 22px !important;
+            color: #555555 !important;
+            margin-bottom: 8px !important;
+            width: auto !important;
+            height: auto !important;
         }
 
-        .coupon-list-grid {
-            grid-template-columns: 1fr;
+        /* 활성 상태 탭 (브라운 테마) */
+        .nav-link.active {
+            background: #8b7355 !important;
+            border-color: #8b7355 !important;
+        }
+
+        .nav-link.active,
+        .nav-link.active i {
+            color: #ffffff !important;
+        }
+
+        /* 로그아웃 버튼 (레드 포인트) */
+        .mobile-only-logout {
+            display: flex !important;
+            color: #e74c3c !important;
+            border-color: #ffecec !important;
+        }
+
+        .mobile-only-logout i {
+            color: #e74c3c !important;
+        }
+
+        /* 3. 섹션 내용 최적화 */
+        .mypage-content {
+            padding: 0 !important;
+        }
+
+        .content-section {
+            padding: 10px 0 !important;
         }
 
         .section-header h2 {
-            font-size: 22px;
+            font-size: 20px !important;
+            margin-bottom: 15px !important;
+        }
+
+        /* 통계 카드 (2열) */
+        .stats-grid {
+            grid-template-columns: 1fr 1fr !important;
+            gap: 10px !important;
+            margin-bottom: 25px !important;
+        }
+
+        .stat-card {
+            padding: 12px !important;
+            border-radius: 10px !important;
+            gap: 10px !important;
+        }
+
+        .stat-icon {
+            width: 35px !important;
+            height: 35px !important;
+            font-size: 16px !important;
+        }
+
+        .stat-info p {
+            font-size: 11px !important;
+        }
+
+        .stat-info h3 {
+            font-size: 17px !important;
+        }
+
+        /* 주문 내역 카드 */
+        .order-card {
+            padding: 15px !important;
+        }
+
+        .order-header {
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 5px;
+        }
+
+        .order-body {
+            flex-direction: column;
+            gap: 5px;
+        }
+
+        .order-actions {
+            flex-direction: column;
+        }
+
+        .order-actions .btn {
+            width: 100% !important;
+            margin: 0 !important;
+        }
+
+        /* 장바구니/찜 목록 */
+        .cart-item-row {
+            flex-direction: column !important;
+            align-items: center !important;
+            gap: 10px !important;
+            text-align: center !important;
         }
 
         .wishlist-grid {
-            grid-template-columns: 1fr;
+            grid-template-columns: 1fr !important;
+            gap: 15px !important;
         }
 
-        .my-review-card {
-            padding: 15px;
+        /* [추가] 모바일 쿠폰함 전용 스타일 */
+        .coupon-list-grid {
+            grid-template-columns: 1fr !important;
+            /* 모바일은 무조건 1열로 공간 확보 */
+            gap: 15px !important;
         }
 
-        .review-product img {
-            width: 60px;
-            height: 60px;
+        .my-coupon-card {
+            height: 110px !important;
+            /* 티켓 느낌의 가로형 고정 높이 */
+            border: none !important;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08) !important;
+            position: relative;
         }
 
-        .review-product h4 {
-            font-size: 14px;
+        .my-coupon-card .c-left {
+            width: 100px !important;
+            /* 화려한 포인트 컬러 영역 가로폭 고정 */
+            padding: 10px !important;
+            border-right: 2px dashed rgba(255, 255, 255, 0.3);
+            /* 티켓 절취선 느낌 */
         }
 
-        .review-content h4 {
-            font-size: 16px;
-            margin-top: 15px;
+        .my-coupon-card .c-left span:first-child {
+            font-size: 22px !important;
+            /* 할인 금액 강조 */
+            margin-bottom: 2px;
         }
 
-        .review-meta-right {
-            position: static !important;
-            margin-top: 10px;
-            text-align: right;
+        .my-coupon-card .c-left span:last-child {
+            font-size: 10px !important;
+            letter-spacing: 1px;
+        }
+
+        .my-coupon-card .c-right {
+            padding: 15px 12px !important;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .my-coupon-card .c-right h4 {
+            font-size: 15px !important;
+            margin-bottom: 4px !important;
+            color: #333 !important;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .my-coupon-card .c-right p {
+            font-size: 11px !important;
+            color: #777 !important;
+            margin-bottom: 8px !important;
+        }
+
+        .my-coupon-card .expiry {
+            font-size: 10px !important;
+            background: #f8f8f8 !important;
+            padding: 2px 6px !important;
+            border-radius: 4px !important;
+            width: fit-content;
+        }
+
+        .btn-cancel-coupon {
+            top: 5px !important;
+            right: 5px !important;
+            font-size: 18px !important;
+            color: #ddd !important;
         }
     }
+
+
 
     /* 모달 스타일 */
     .modal-overlay {
