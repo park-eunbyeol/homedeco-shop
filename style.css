@@ -1753,29 +1753,3 @@ textarea:focus {
         gap: 20px !important;
     }
 }
-
-/* =========================
-   HEADER LOGO – COZY-DECO
-========================= */
-
-.site-header .logo a {
-    font-family: 'Playfair Display', serif;
-    font-size: 28px;
-    font-weight: 600;
-    letter-spacing: 0.18em;
-    color: #2b2b2b;
-    text-decoration: none;
-    transition: color 0.3s ease;
-}
-
-.site-header .logo a:hover {
-    color: #8b7d6b;
-}
-
-/* 모바일 */
-@media (max-width: 768px) {
-    .site-header .logo a {
-        font-size: 22px;
-        letter-spacing: 0.14em;
-    }
-}
