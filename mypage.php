@@ -1122,6 +1122,34 @@ require_once 'includes/header.php';
             align-items: flex-end;
             text-align: left !important;
         }
+
+        .order-body {
+            flex-direction: column;
+            gap: 5px;
+        }
+
+        .order-total {
+            font-size: 18px;
+        }
+
+        .form-actions {
+            flex-direction: column;
+        }
+
+        .form-actions .btn {
+            width: 100%;
+        }
+
+        .cart-summary {
+            text-align: center !important;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .cart-summary span {
+            margin-right: 0 !important;
+        }
     }
 
     /* 주문 현황 카드 스타일 개선 */
@@ -1306,6 +1334,30 @@ require_once 'includes/header.php';
 
         .wishlist-grid {
             grid-template-columns: 1fr;
+        }
+
+        .my-review-card {
+            padding: 15px;
+        }
+
+        .review-product img {
+            width: 60px;
+            height: 60px;
+        }
+
+        .review-product h4 {
+            font-size: 14px;
+        }
+
+        .review-content h4 {
+            font-size: 16px;
+            margin-top: 15px;
+        }
+
+        .review-meta-right {
+            position: static !important;
+            margin-top: 10px;
+            text-align: right;
         }
     }
 
