@@ -1107,14 +1107,6 @@ require_once 'includes/header.php';
         line-height: 1;
     }
 
-    @media (max-width: 768px) {
-        .stats-grid {
-            grid-template-columns: repeat(2, 1fr);
-        }
-
-        .mobile-only-logout {
-            display: block !important;
-        }
     }
 
     /* 쿠폰함 스타일 */
@@ -1225,12 +1217,132 @@ require_once 'includes/header.php';
             font-size: 12px;
         }
     }
+
+    /* 모달 스타일 */
+    .modal-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.5);
+        z-index: 2000;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .tracking-modal {
+        background: white;
+        width: 90%;
+        max-width: 500px;
+        border-radius: 12px;
+        overflow: hidden;
+        animation: slideUp 0.3s ease;
+    }
+
+    .tracking-modal .modal-header {
+        padding: 20px;
+        border-bottom: 1px solid #eee;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .tracking-modal .modal-header h3 {
+        margin: 0;
+        font-size: 18px;
+        color: #333;
+    }
+
+    .tracking-modal .close-btn {
+        background: none;
+        border: none;
+        font-size: 24px;
+        cursor: pointer;
+        color: #999;
+    }
+
+    .tracking-modal .modal-body {
+        padding: 20px;
+        max-height: 60vh;
+        overflow-y: auto;
+    }
+
+    .tracking-timeline {
+        margin-top: 20px;
+        padding-left: 10px;
+        border-left: 2px solid #eee;
+        margin-left: 10px;
+    }
+
+    .tracking-step {
+        position: relative;
+        padding-left: 20px;
+        padding-bottom: 25px;
+    }
+
+    .tracking-step::before {
+        content: '';
+        position: absolute;
+        left: -6px;
+        top: 5px;
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+        background: #ddd;
+        border: 2px solid #fff;
+    }
+
+    .tracking-step.active::before {
+        background: var(--primary-color);
+    }
+
+    .tracking-step:last-child {
+        padding-bottom: 0;
+    }
+
+    .tracking-step h4 {
+        margin: 0 0 5px;
+        font-size: 15px;
+        color: #333;
+    }
+
+    .tracking-step p {
+        margin: 0;
+        font-size: 13px;
+        color: #777;
+    }
+
+    .tracking-step .time {
+        font-size: 12px;
+        color: #999;
+        margin-top: 2px;
+    }
 </style>
+
+<!-- 배송조회 모달 HTML -->
+<div id="trackingModal" class="modal-overlay" style="display: none;">
+    <div class="modal-content tracking-modal">
+        <div class="modal-header">
+            <h3>배송 조회</h3>
+            <button class="close-btn" onclick="closeTracking()">&times;</button>
+        </div>
+        <div class="modal-body">
+            <div class="tracking-info">
+                <p><strong>송장번호:</strong> <span id="tracking-number">1234567890</span> (CJ대한통운)</p>
+            </div>
+            <div class="tracking-timeline" id="tracking-timeline">
+                <!-- 타임라인 아이템들이 JS로 들어갑니다 -->
+            </div>
+        </div>
+    </div>
+</div>
 
 <script>
     document.addEventListener('DOMContentLoaded', () => {
         // URL 해시가 있으면 해당 섹션 열기
-        const hash = window.location.hash.substring(1); // # 제거
+        const hash = window.location.hash.substring(1);
         if (hash && document.getElementById(hash)) {
             showSection(hash);
         }
@@ -1250,8 +1362,6 @@ require_once 'includes/header.php';
         const targetSection = document.getElementById(sectionId);
         if (targetSection) {
             targetSection.classList.add('active');
-
-            // 네비게이션 활성화
             const navLink = document.querySelector(`.nav-link[href="#${sectionId}"]`);
             if (navLink) {
                 navLink.classList.add('active');
@@ -1260,35 +1370,65 @@ require_once 'includes/header.php';
     }
 
     function showPasswordChange() {
-        document.getElementById('passwordChange').style.display = 'block';
+        const pc = document.getElementById('passwordChange');
+        if (pc) pc.style.display = 'block';
+    }
+
+    function openTracking(orderId) {
+        const trackingNum = 'CJ' + Math.floor(1000000000 + Math.random() * 9000000000);
+        const tnElem = document.getElementById('tracking-number');
+        if (tnElem) tnElem.innerText = trackingNum;
+
+        const steps = [
+            { title: '배송완료', location: '고객님의 주소' },
+            { title: '배송출발', location: '서울강남캠프' },
+            { title: '터미널도착', location: '옥천HUB' },
+            { title: '집화처리', location: '경기광주' },
+            { title: '상품준비', location: '판매처' }
+        ];
+
+        const timeline = document.getElementById('tracking-timeline');
+        if (timeline) {
+            let html = '';
+            let date = new Date();
+            steps.forEach((step, index) => {
+                let stepDate = new Date(date);
+                stepDate.setDate(date.getDate() - index);
+                let dateStr = stepDate.toLocaleDateString() + ' ' + stepDate.getHours() + ':00';
+                let activeClass = index === 0 ? 'active' : '';
+                html += `
+                    <div class="tracking-step ${activeClass}">
+                        <h4>${step.title}</h4>
+                        <p>${step.location}</p>
+                        <div class="time">${dateStr}</div>
+                    </div>
+                `;
+            });
+            timeline.innerHTML = html;
+        }
+        const modal = document.getElementById('trackingModal');
+        if (modal) modal.style.display = 'flex';
+    }
+
+    function closeTracking() {
+        const modal = document.getElementById('trackingModal');
+        if (modal) modal.style.display = 'none';
     }
 
     function deleteCartItem(cartId) {
         if (!confirm('장바구니에서 삭제하시겠습니까?')) return;
-
         fetch('api/cart-update.php', {
             method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-                cart_id: cartId,
-                change: 0,
-                action: 'delete'
-            })
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ cart_id: cartId, change: 0, action: 'delete' })
         })
             .then(response => response.json())
             .then(data => {
                 if (data.success) {
-                    // DOM 제거
                     const itemRow = document.getElementById('mypage-cart-item-' + cartId);
                     if (itemRow) itemRow.remove();
-
-                    // 총액 재계산
                     updateTotal();
-
-                    // 장바구니가 비었는지 체크
-                    checkEmptyCart();
+                    if (document.querySelectorAll('.cart-item-row').length === 0) location.reload();
                 } else {
                     alert('삭제 실패: ' + (data.error || '알 수 없는 오류'));
                 }
@@ -1302,9 +1442,11 @@ require_once 'includes/header.php';
     function updateTotal() {
         let total = 0;
         document.querySelectorAll('.cart-item-row').forEach(row => {
-            const price = parseInt(row.querySelector('.item-price').dataset.price);
-            const qty = parseInt(row.querySelector('.item-qty').dataset.qty);
-            total += price * qty;
+            const priceElem = row.querySelector('.item-price');
+            const qtyElem = row.querySelector('.item-qty');
+            if (priceElem && qtyElem) {
+                total += parseInt(priceElem.dataset.price) * parseInt(qtyElem.dataset.qty);
+            }
         });
         const totalElem = document.getElementById('cart-total-price');
         if (totalElem) {
@@ -1312,29 +1454,17 @@ require_once 'includes/header.php';
         }
     }
 
-    function checkEmptyCart() {
-        if (document.querySelectorAll('.cart-item-row').length === 0) {
-            location.reload(); // 간단하게 새로고침하여 '비어있음' 화면 표시
-        }
-    }
-
-    // 쿠폰 로드 함수
     function loadMyCoupons() {
         const list = document.querySelector('.coupon-list-grid');
         if (!list) return;
-
         const myCoupons = JSON.parse(localStorage.getItem('homedeco_my_coupons') || '[]');
-
         if (myCoupons.length === 0) {
             list.innerHTML = '<div style="grid-column: 1/-1; text-align: center; padding: 40px; color: #999;"><i class="fas fa-ticket-alt" style="font-size: 40px; margin-bottom: 20px;"></i><p>보유한 쿠폰이 없습니다.</p></div>';
             return;
         }
-
         let html = '';
         myCoupons.forEach(coupon => {
-            // 배경색이 없으면 기본값 설정
             const bgStyle = coupon.badgeColor ? `background: ${coupon.badgeColor};` : 'background: #3498db;';
-
             html += `
                 <div class="my-coupon-card" data-id="${coupon.id}">
                     <button class="btn-cancel-coupon" onclick="cancelCoupon(this)">&times;</button>
@@ -1354,55 +1484,42 @@ require_once 'includes/header.php';
     }
 
     function cancelCoupon(btn) {
-        if (confirm('이 쿠폰을 삭제하시겠습니까? (복구할 수 없습니다)')) {
-            const card = btn.closest('.my-coupon-card');
-            const couponId = card.dataset.id;
+        if (!confirm('이 쿠폰을 삭제하시겠습니까? (복구할 수 없습니다)')) return;
+        const card = btn.closest('.my-coupon-card');
+        const couponId = card.dataset.id;
+        card.style.opacity = '0';
+        card.style.transform = 'scale(0.9)';
+        setTimeout(() => {
+            card.remove();
+            let myCoupons = JSON.parse(localStorage.getItem('homedeco_my_coupons') || '[]');
+            myCoupons = myCoupons.filter(c => String(c.id) !== String(couponId));
+            localStorage.setItem('homedeco_my_coupons', JSON.stringify(myCoupons));
+            if (myCoupons.length === 0) {
+                const list = document.querySelector('.coupon-list-grid');
+                if (list) list.innerHTML = '<div style="grid-column: 1/-1; text-align: center; padding: 40px; color: #999;"><i class="fas fa-ticket-alt" style="font-size: 40px; margin-bottom: 20px;"></i><p>보유한 쿠폰이 없습니다.</p></div>';
+            }
+        }, 300);
+    }
 
-            card.style.opacity = '0';
-            card.style.transform = 'scale(0.9)';
-
-            setTimeout(() => {
-                card.remove();
-
-                // 로컬 스토리지에서 삭제
-                let myCoupons = JSON.parse(localStorage.getItem('homedeco_my_coupons') || '[]');
-                myCoupons = myCoupons.filter(c => String(c.id) !== String(couponId));
-                localStorage.setItem('homedeco_my_coupons', JSON.stringify(myCoupons));
-
-                // 쿠폰이 다 사라지면 메시지 표시
-                if (myCoupons.length === 0) {
-                    const list = document.querySelector('.coupon-list-grid');
-                    if (list) {
-                        list.innerHTML = '<div style="grid-column: 1/-1; text-align: center; padding: 40px; color: #999;"><i class="fas fa-ticket-alt" style="font-size: 40px; margin-bottom: 20px;"></i><p>보유한 쿠폰이 없습니다.</p></div>';
-                        list.style.display = 'block';
-                    }
+    function deleteReview(reviewId) {
+        if (!confirm('정말로 이 리뷰를 삭제하시겠습니까?')) return;
+        fetch('/homedeco-shop/api/review-delete.php', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ review_id: reviewId })
+        })
+            .then(response => response.json())
+            .then(result => {
+                if (result.success) {
+                    alert('리뷰가 삭제되었습니다.');
+                    window.location.reload();
+                } else {
+                    alert(result.message || '리뷰 삭제 실패');
                 }
-            }, 300);
-        }
-        function deleteReview(reviewId) {
-            if (!confirm('정말로 이 리뷰를 삭제하시겠습니까?')) return;
-
-            fetch('/homedeco-shop/api/review-delete.php', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({
-                    review_id: reviewId
-                })
             })
-                .then(response => response.json())
-                .then(result => {
-                    if (result.success) {
-                        alert('리뷰가 삭제되었습니다.');
-                        window.location.reload();
-                    } else {
-                        alert(result.message || '리뷰 삭제 실패');
-                    }
-                })
-                .catch(error => {
-                    alert('서버 통신 오류가 발생했습니다.');
-                    console.error(error);
-                });
-        }
+            .catch(error => {
+                alert('서버 통신 오류가 발생했습니다.');
+                console.error(error);
+            });
+    }
 </script>
