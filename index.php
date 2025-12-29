@@ -154,13 +154,13 @@ require_once 'includes/header.php';
     </section>
 
     <!-- 쿠폰 섹션 -->
-    <section class="coupon-section" style="background: #fcfcfc; padding: 80px 0; margin: 100px 0; border-radius: 50px;">
-        <div class="section-header" style="text-align: center; margin-bottom: 60px;">
+    <section class="coupon-section">
+        <div class="section-header">
             <h2 class="section-title">🎁 COZY-DECO 특별 혜택</h2>
-            <p style="color: #888; margin-top: 10px;">쇼핑이 더 즐거워지는 오늘의 쿠폰팩을 받아가세요</p>
+            <p class="section-subtitle">쇼핑이 더 즐거워지는 오늘의 쿠폰팩을 받아가세요</p>
         </div>
 
-        <div class="coupon-grid" style="max-width: 1200px; margin: 0 auto; padding: 0 20px;">
+        <div class="coupon-grid">
             <!-- 1. 신규회원 -->
             <div class="coupon-card">
                 <div class="coupon-badge">WELCOME</div>

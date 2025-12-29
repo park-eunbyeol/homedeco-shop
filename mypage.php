@@ -305,48 +305,37 @@ require_once 'includes/header.php';
                     <h2>내 쿠폰함</h2>
                 </div>
 
-                <div class="coupon-list-grid" style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px;">
+                <div class="coupon-list-grid">
                     <!-- 샘플 쿠폰 데이터 (DB 연동 시 대체) -->
-                    <div class="my-coupon-card"
-                        style="border: 1px solid #ddd; border-radius: 12px; overflow: hidden; display: flex; background: #fff; position: relative; transition: all 0.3s ease;">
-                        <button class="btn-cancel-coupon" onclick="cancelCoupon(this)"
-                            style="position: absolute; top: 10px; right: 10px; background: none; border: none; color: #999; font-size: 24px; cursor: pointer; z-index: 10; padding: 0 5px; line-height: 1;">&times;</button>
-                        <div class="c-left"
-                            style="background: #3498db; color: white; padding: 20px; display: flex; flex-direction: column; justify-content: center; align-items: center; width: 100px;">
+                    <div class="my-coupon-card">
+                        <button class="btn-cancel-coupon" onclick="cancelCoupon(this)">&times;</button>
+                        <div class="c-left" style="background: #3498db;">
                             <span style="font-size: 18px; font-weight: bold;">10%</span>
                             <span style="font-size: 12px;">OFF</span>
                         </div>
-                        <div class="c-right" style="padding: 20px; flex: 1;">
-                            <h4 style="margin: 0 0 5px; color: #333;">신규가입 웰컴 쿠폰</h4>
-                            <p style="margin: 0 0 10px; font-size: 13px; color: #777;">전 상품 사용 가능 (최대 1만원)</p>
-                            <span
-                                style="display: inline-block; padding: 4px 10px; background: #f0f0f0; border-radius: 4px; font-size: 11px; color: #666;">~
-                                2024.12.31 까지</span>
+                        <div class="c-right">
+                            <h4>신규가입 웰컴 쿠폰</h4>
+                            <p>전 상품 사용 가능 (최대 1만원)</p>
+                            <span class="expiry">~ 2024.12.31 까지</span>
                         </div>
                     </div>
 
-                    <div class="my-coupon-card"
-                        style="border: 1px solid #ddd; border-radius: 12px; overflow: hidden; display: flex; background: #fff; position: relative; transition: all 0.3s ease;">
-                        <button class="btn-cancel-coupon" onclick="cancelCoupon(this)"
-                            style="position: absolute; top: 10px; right: 10px; background: none; border: none; color: #999; font-size: 24px; cursor: pointer; z-index: 10; padding: 0 5px; line-height: 1;">&times;</button>
-                        <div class="c-left"
-                            style="background: #2ecc71; color: white; padding: 20px; display: flex; flex-direction: column; justify-content: center; align-items: center; width: 100px;">
+                    <div class="my-coupon-card">
+                        <button class="btn-cancel-coupon" onclick="cancelCoupon(this)">&times;</button>
+                        <div class="c-left" style="background: #2ecc71;">
                             <span style="font-size: 18px; font-weight: bold;">Free</span>
                             <span style="font-size: 12px;">Ship</span>
                         </div>
-                        <div class="c-right" style="padding: 20px; flex: 1;">
-                            <h4 style="margin: 0 0 5px; color: #333;">배송비 0원 쿠폰</h4>
-                            <p style="margin: 0 0 10px; font-size: 13px; color: #777;">3만원 이상 구매 시 무료배송</p>
-                            <span
-                                style="display: inline-block; padding: 4px 10px; background: #f0f0f0; border-radius: 4px; font-size: 11px; color: #666;">~
-                                2024.12.31 까지</span>
+                        <div class="c-right">
+                            <h4>배송비 0원 쿠폰</h4>
+                            <p>3만원 이상 구매 시 무료배송</p>
+                            <span class="expiry">~ 2024.12.31 까지</span>
                         </div>
                     </div>
                 </div>
 
-                <div class="coupon-info"
-                    style="margin-top: 30px; background: #f9f9f9; padding: 20px; border-radius: 8px; font-size: 13px; color: #666;">
-                    <h5 style="margin: 0 0 10px; color: #333;">💡 쿠폰 사용 안내</h5>
+                <div class="coupon-info">
+                    <h5>💡 쿠폰 사용 안내</h5>
                     <ul style="padding-left: 20px; margin: 0; line-height: 1.6;">
                         <li>쿠폰은 주문 결제 시 적용할 수 있습니다.</li>
                         <li>유효기간이 만료된 쿠폰은 자동으로 소멸됩니다.</li>
@@ -1097,6 +1086,115 @@ require_once 'includes/header.php';
             display: block !important;
         }
     }
+
+    /* 쿠폰함 스타일 */
+    .coupon-list-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 20px;
+    }
+
+    .my-coupon-card {
+        border: 1px solid #ddd;
+        border-radius: 12px;
+        overflow: hidden;
+        display: flex;
+        background: #fff;
+        position: relative;
+        transition: all 0.3s ease;
+    }
+
+    .btn-cancel-coupon {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        background: none;
+        border: none;
+        color: #999;
+        font-size: 24px;
+        cursor: pointer;
+        z-index: 10;
+        padding: 0 5px;
+        line-height: 1;
+    }
+
+    .c-left {
+        color: white;
+        padding: 20px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        width: 100px;
+        flex-shrink: 0;
+    }
+
+    .c-right {
+        padding: 20px;
+        flex: 1;
+        min-width: 0;
+    }
+
+    .c-right h4 {
+        margin: 0 0 5px;
+        color: #333;
+        font-size: 16px;
+    }
+
+    .c-right p {
+        margin: 0 0 10px;
+        font-size: 13px;
+        color: #777;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    .c-right .expiry {
+        display: inline-block;
+        padding: 4px 10px;
+        background: #f0f0f0;
+        border-radius: 4px;
+        font-size: 11px;
+        color: #666;
+    }
+
+    .coupon-info {
+        margin-top: 30px;
+        background: #f9f9f9;
+        padding: 20px;
+        border-radius: 8px;
+        font-size: 13px;
+        color: #666;
+    }
+
+    .coupon-info h5 {
+        margin: 0 0 10px;
+        color: #333;
+    }
+
+    @media (max-width: 768px) {
+        .coupon-list-grid {
+            grid-template-columns: 1fr;
+        }
+
+        .c-left {
+            width: 80px;
+            padding: 15px;
+        }
+
+        .c-right {
+            padding: 15px;
+        }
+
+        .c-right h4 {
+            font-size: 15px;
+        }
+
+        .c-right p {
+            font-size: 12px;
+        }
+    }
 </style>
 
 <script>
@@ -1208,16 +1306,16 @@ require_once 'includes/header.php';
             const bgStyle = coupon.badgeColor ? `background: ${coupon.badgeColor};` : 'background: #3498db;';
 
             html += `
-                <div class="my-coupon-card" data-id="${coupon.id}" style="border: 1px solid #ddd; border-radius: 12px; overflow: hidden; display: flex; background: #fff; position: relative; transition: all 0.3s ease;">
-                    <button class="btn-cancel-coupon" onclick="cancelCoupon(this)" style="position: absolute; top: 10px; right: 10px; background: none; border: none; color: #999; font-size: 24px; cursor: pointer; z-index: 10; padding: 0 5px; line-height: 1;">&times;</button>
-                    <div class="c-left" style="${bgStyle} color: white; padding: 20px; display: flex; flex-direction: column; justify-content: center; align-items: center; width: 100px;">
+                <div class="my-coupon-card" data-id="${coupon.id}">
+                    <button class="btn-cancel-coupon" onclick="cancelCoupon(this)">&times;</button>
+                    <div class="c-left" style="${bgStyle}">
                         <span style="font-size: 18px; font-weight: bold;">${coupon.price}</span>
                         <span style="font-size: 12px;">COUPON</span>
                     </div>
-                    <div class="c-right" style="padding: 20px; flex: 1;">
-                        <h4 style="margin: 0 0 5px; color: #333;">${coupon.title}</h4>
-                        <p style="margin: 0 0 10px; font-size: 13px; color: #777;">${coupon.condition}</p>
-                        <span style="display: inline-block; padding: 4px 10px; background: #f0f0f0; border-radius: 4px; font-size: 11px; color: #666;">~ 2024.12.31 까지</span>
+                    <div class="c-right">
+                        <h4>${coupon.title}</h4>
+                        <p>${coupon.condition}</p>
+                        <span class="expiry">~ 2024.12.31 까지</span>
                     </div>
                 </div>
             `;
