@@ -62,7 +62,7 @@ $stmt->bind_param("iiiss", $user_id, $product_id, $rating, $title, $content);
 if ($stmt->execute()) {
     // 상품 평점 및 리뷰 수 업데이트
     $conn->query("UPDATE products SET 
-        rating = (SELECT AVG(rating) FROM reviews WHERE product_id = $product_id AND is_approved = 1),
+        rating = (SELECT COALESCE(AVG(rating), 0) FROM reviews WHERE product_id = $product_id AND is_approved = 1),
         review_count = (SELECT COUNT(*) FROM reviews WHERE product_id = $product_id AND is_approved = 1)
         WHERE product_id = $product_id");
 
