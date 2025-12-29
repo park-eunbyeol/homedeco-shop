@@ -125,13 +125,13 @@ require_once 'includes/header.php';
             <div class="filter-section">
                 <h3>인기 검색어</h3>
                 <div class="popular-keywords">
-                    <a href="?search=북유럽 인테리어" class="keyword-tag">#북유럽</a>
-                    <a href="?search=미니멀 가구" class="keyword-tag">#미니멀</a>
+                    <a href="?search=북유럽" class="keyword-tag">#북유럽</a>
+                    <a href="?search=미니멀" class="keyword-tag">#미니멀</a>
                     <a href="?search=무드등" class="keyword-tag">#무드등</a>
                     <a href="?search=소파" class="keyword-tag">#소파</a>
                     <a href="?search=침대" class="keyword-tag">#침대</a>
                     <a href="?search=식탁" class="keyword-tag">#식탁</a>
-                    <a href="?search=수납장" class="keyword-tag">#수납</a>
+                    <a href="?search=수납" class="keyword-tag">#수납</a>
                     <a href="?search=벽시계" class="keyword-tag">#시계</a>
                 </div>
             </div>
@@ -221,17 +221,20 @@ require_once 'includes/header.php';
 
                 <div class="sort-options">
                     <select onchange="location.href=this.value">
-                        <option value="?sort=newest<?php echo $category_id > 0 ? '&category=' . $category_id : ''; ?>"
+                        <option
+                            value="?sort=newest<?php echo $category_id > 0 ? '&category=' . $category_id : ''; ?><?php echo !empty($search) ? '&search=' . urlencode($search) : ''; ?>"
                             <?php echo $sort == 'newest' ? 'selected' : ''; ?>>최신순</option>
-                        <option value="?sort=popular<?php echo $category_id > 0 ? '&category=' . $category_id : ''; ?>"
+                        <option
+                            value="?sort=popular<?php echo $category_id > 0 ? '&category=' . $category_id : ''; ?><?php echo !empty($search) ? '&search=' . urlencode($search) : ''; ?>"
                             <?php echo $sort == 'popular' ? 'selected' : ''; ?>>인기순</option>
                         <option
-                            value="?sort=price_low<?php echo $category_id > 0 ? '&category=' . $category_id : ''; ?>"
+                            value="?sort=price_low<?php echo $category_id > 0 ? '&category=' . $category_id : ''; ?><?php echo !empty($search) ? '&search=' . urlencode($search) : ''; ?>"
                             <?php echo $sort == 'price_low' ? 'selected' : ''; ?>>낮은 가격순</option>
                         <option
-                            value="?sort=price_high<?php echo $category_id > 0 ? '&category=' . $category_id : ''; ?>"
+                            value="?sort=price_high<?php echo $category_id > 0 ? '&category=' . $category_id : ''; ?><?php echo !empty($search) ? '&search=' . urlencode($search) : ''; ?>"
                             <?php echo $sort == 'price_high' ? 'selected' : ''; ?>>높은 가격순</option>
-                        <option value="?sort=rating<?php echo $category_id > 0 ? '&category=' . $category_id : ''; ?>"
+                        <option
+                            value="?sort=rating<?php echo $category_id > 0 ? '&category=' . $category_id : ''; ?><?php echo !empty($search) ? '&search=' . urlencode($search) : ''; ?>"
                             <?php echo $sort == 'rating' ? 'selected' : ''; ?>>평점순</option>
                     </select>
                 </div>
@@ -301,7 +304,7 @@ require_once 'includes/header.php';
                 <?php if ($total_pages > 1): ?>
                     <div class="pagination">
                         <?php if ($page > 1): ?>
-                            <a href="?page=<?php echo $page - 1; ?>&category=<?php echo $category_id; ?>&sort=<?php echo $sort; ?>"
+                            <a href="?page=<?php echo $page - 1; ?>&category=<?php echo $category_id; ?>&sort=<?php echo $sort; ?><?php echo !empty($search) ? '&search=' . urlencode($search) : ''; ?>"
                                 class="page-link">
                                 <i class="fas fa-chevron-left"></i>
                             </a>
@@ -309,7 +312,7 @@ require_once 'includes/header.php';
 
                         <?php for ($i = 1; $i <= $total_pages; $i++): ?>
                             <?php if ($i == 1 || $i == $total_pages || ($i >= $page - 2 && $i <= $page + 2)): ?>
-                                <a href="?page=<?php echo $i; ?>&category=<?php echo $category_id; ?>&sort=<?php echo $sort; ?>"
+                                <a href="?page=<?php echo $i; ?>&category=<?php echo $category_id; ?>&sort=<?php echo $sort; ?><?php echo !empty($search) ? '&search=' . urlencode($search) : ''; ?>"
                                     class="page-link <?php echo $i == $page ? 'active' : ''; ?>">
                                     <?php echo $i; ?>
                                 </a>
@@ -319,7 +322,7 @@ require_once 'includes/header.php';
                         <?php endfor; ?>
 
                         <?php if ($page < $total_pages): ?>
-                            <a href="?page=<?php echo $page + 1; ?>&category=<?php echo $category_id; ?>&sort=<?php echo $sort; ?>"
+                            <a href="?page=<?php echo $page + 1; ?>&category=<?php echo $category_id; ?>&sort=<?php echo $sort; ?><?php echo !empty($search) ? '&search=' . urlencode($search) : ''; ?>"
                                 class="page-link">
                                 <i class="fas fa-chevron-right"></i>
                             </a>

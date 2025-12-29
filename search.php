@@ -1,22 +1,15 @@
 <?php
-$page_title = '검색 결과';
-if (session_status() === PHP_SESSION_NONE) {
-    session_start();
-}
+// search.php (Legacy)
+// 이 페이지는 더 이상 사용하지 않으며, 모든 검색을 products.php로 리다이렉트합니다.
 
-require_once 'includes/db.php';
-require_once 'includes/functions.php';
-require_once 'includes/naver_api.php';
-
-$is_logged_in = is_logged_in();
-
-// 검색어 가져오기
-$search_query = isset($_GET['q']) ? trim($_GET['q']) : '';
-$products = [];
+$search_query = isset($_GET['q']) ? trim($_GET['q']) : (isset($_GET['search']) ? trim($_GET['search']) : '');
 
 if (!empty($search_query)) {
-    // 네이버 쇼핑 API로 검색
-    $products = search_naver_products($search_query, 20);
+    header("Location: products.php?search=" . urlencode($search_query));
+    exit;
+} else {
+    header("Location: products.php");
+    exit;
 }
 ?>
 
