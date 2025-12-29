@@ -1107,52 +1107,57 @@ require_once 'includes/header.php';
         line-height: 1;
     }
 
-    }
+
 
     /* 쿠폰함 스타일 */
     .coupon-list-grid {
         display: grid;
         grid-template-columns: repeat(2, 1fr);
-        gap: 20px;
+        gap: 25px;
     }
 
     .my-coupon-card {
-        border: 1px solid #ddd;
+        border: 1px solid #eee;
         border-radius: 12px;
         overflow: hidden;
         display: flex;
         background: #fff;
         position: relative;
         transition: all 0.3s ease;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.03);
     }
 
     .btn-cancel-coupon {
         position: absolute;
-        top: 10px;
-        right: 10px;
+        top: 8px;
+        right: 8px;
         background: none;
         border: none;
-        color: #999;
-        font-size: 24px;
+        color: #ccc;
+        font-size: 20px;
         cursor: pointer;
         z-index: 10;
         padding: 0 5px;
-        line-height: 1;
+        transition: color 0.2s;
+    }
+
+    .btn-cancel-coupon:hover {
+        color: #ff6b6b;
     }
 
     .c-left {
         color: white;
-        padding: 20px;
+        padding: 15px;
         display: flex;
         flex-direction: column;
         justify-content: center;
         align-items: center;
-        width: 100px;
+        width: 85px;
         flex-shrink: 0;
     }
 
     .c-right {
-        padding: 20px;
+        padding: 15px 18px;
         flex: 1;
         min-width: 0;
     }
@@ -1160,12 +1165,13 @@ require_once 'includes/header.php';
     .c-right h4 {
         margin: 0 0 5px;
         color: #333;
-        font-size: 16px;
+        font-size: 15px;
+        font-weight: 600;
     }
 
     .c-right p {
         margin: 0 0 10px;
-        font-size: 13px;
+        font-size: 12px;
         color: #777;
         white-space: nowrap;
         overflow: hidden;
@@ -1174,11 +1180,11 @@ require_once 'includes/header.php';
 
     .c-right .expiry {
         display: inline-block;
-        padding: 4px 10px;
-        background: #f0f0f0;
+        padding: 3px 8px;
+        background: #f5f5f5;
         border-radius: 4px;
-        font-size: 11px;
-        color: #666;
+        font-size: 10px;
+        color: #888;
     }
 
     .coupon-info {
