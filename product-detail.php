@@ -1063,7 +1063,7 @@ require_once 'includes/header.php';
             data.rating = document.querySelector('input[name="rating"]:checked')?.value || 5;
         }
 
-        fetch('./api/review-save.php', {
+        fetch('/homedeco-shop/api/review-save.php', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'

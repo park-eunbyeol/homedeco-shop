@@ -141,7 +141,7 @@ require_once 'includes/header.php';
             data[key] = value;
         });
 
-        fetch('./api/review-save.php', {
+        fetch('/homedeco-shop/api/review-save.php', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(data)

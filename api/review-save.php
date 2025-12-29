@@ -61,12 +61,37 @@ $stmt->bind_param("iiiss", $user_id, $product_id, $rating, $title, $content);
 
 if ($stmt->execute()) {
     // 상품 평점 및 리뷰 수 업데이트
-    $conn->query("UPDATE products SET 
-        rating = (SELECT COALESCE(AVG(rating), 0) FROM reviews WHERE product_id = $product_id AND is_approved = 1),
-        review_count = (SELECT COUNT(*) FROM reviews WHERE product_id = $product_id AND is_approved = 1)
-        WHERE product_id = $product_id");
+    // 직접 계산하여 업데이트 (더 안전한 방법)
+    $stats_query = "SELECT COUNT(*) as cnt, AVG(rating) as avg_rating FROM reviews WHERE product_id = $product_id AND is_approved = 1";
+    $stats_result = $conn->query($stats_query);
+    $stats = $stats_result->fetch_assoc();
 
-    echo json_encode(['success' => true]);
+    $cnt = (int) ($stats['cnt'] ?? 0);
+    $avg = (float) ($stats['avg_rating'] ?? 0);
+
+    $update_sql = "UPDATE products SET 
+        rating = ?, 
+        review_count = ? 
+        WHERE product_id = ?";
+
+    $update_stmt = $conn->prepare($update_sql);
+    $update_stmt->bind_param("dii", $avg, $cnt, $product_id);
+    $update_success = $update_stmt->execute();
+
+    if ($update_success) {
+        echo json_encode([
+            'success' => true,
+            'new_count' => $cnt,
+            'new_rating' => $avg
+        ]);
+    } else {
+        echo json_encode([
+            'success' => true,
+            'warning' => 'Stats update failed',
+            'new_count' => $cnt,
+            'new_rating' => $avg
+        ]);
+    }
 } else {
     echo json_encode(['success' => false, 'message' => '저장 실패: ' . $stmt->error]);
 }
