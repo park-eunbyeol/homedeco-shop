@@ -94,15 +94,8 @@ $stmt->execute();
 $result = $stmt->get_result();
 $products = $result->fetch_all(MYSQLI_ASSOC);
 
-// 외부 상품 검색 (네이버 API)
-$external_products = [];
-if (!empty($search)) {
-    require_once 'includes/naver_api.php';
-    $external_products = search_naver_products($search, 12);
-}
-
-// 전체 표시 개수 (내부 + 외부)
-$total_display_count = $total_items + count($external_products);
+// 전체 표시 개수 (내부 + 외부 제거)
+$total_display_count = $total_items;
 
 require_once 'includes/header.php';
 ?>
@@ -333,80 +326,16 @@ require_once 'includes/header.php';
                         <?php endif; ?>
                     </div>
                 <?php endif; ?>
-            <?php elseif (empty($external_products)): ?>
+            <?php elseif (empty($products)): ?>
                 <div class="no-results">
                     <i class="fas fa-search"></i>
                     <h3>검색 결과가 없습니다</h3>
                     <p>다른 검색어나 필터를 시도해보세요.</p>
-                    <a href="/products.php" class="btn btn-primary">전체 상품 보기</a>
+                    <a href="products.php" class="btn btn-primary">전체 상품 보기</a>
                 </div>
             <?php endif; ?>
 
-            <!-- 외부 상품 결과 표시 (네이버 쇼핑) -->
-            <?php if (!empty($external_products)): ?>
-                <div class="external-products-section"
-                    style="margin-top: 60px; padding-top: 40px; border-top: 1px solid #eee;">
-                    <h2 class="section-title" style="margin-bottom: 20px; font-size: 20px; color: #333;">
-                        <i class="fas fa-search-plus" style="color: #2c3e50; margin-right: 8px;"></i>
-                        '<?php echo htmlspecialchars($search); ?>' 관련 추천 상품
-                    </h2>
 
-                    <div class="product-grid">
-                        <?php foreach ($external_products as $loop_index => $item): ?>
-                            <div class="product-card">
-                                <form action="create_and_redirect.php" method="post" id="ext_form_<?php echo $loop_index; ?>">
-                                    <input type="hidden" name="name" value="<?php echo htmlspecialchars($item['name']); ?>">
-                                    <input type="hidden" name="price" value="<?php echo $item['price']; ?>">
-                                    <input type="hidden" name="image"
-                                        value="<?php echo htmlspecialchars($item['main_image']); ?>">
-                                    <input type="hidden" name="link" value="<?php echo htmlspecialchars($item['link']); ?>">
-                                    <input type="hidden" name="brand"
-                                        value="<?php echo htmlspecialchars($item['brand'] ?? ''); ?>">
-
-                                    <div class="product-image">
-                                        <a href="#"
-                                            onclick="document.getElementById('ext_form_<?php echo $loop_index; ?>').submit(); return false;">
-                                            <img src="<?php echo htmlspecialchars($item['main_image']); ?>"
-                                                alt="<?php echo htmlspecialchars($item['name']); ?>">
-                                        </a>
-                                    </div>
-                                    <div class="product-info">
-                                        <h3 class="product-name">
-                                            <a href="#"
-                                                onclick="document.getElementById('ext_form_<?php echo $loop_index; ?>').submit(); return false;">
-                                                <?php echo htmlspecialchars($item['name']); ?>
-                                            </a>
-                                        </h3>
-
-                                        <?php
-                                        // 랜덤 평점 및 리뷰 수 생성 (외부 상품 시뮬레이션)
-                                        $random_rating = rand(35, 50) / 10; // 3.5 ~ 5.0
-                                        $random_review_count = rand(10, 500);
-                                        ?>
-                                        <input type="hidden" name="rating" value="<?php echo $random_rating; ?>">
-                                        <input type="hidden" name="review_count" value="<?php echo $random_review_count; ?>">
-
-                                        <div class="product-rating">
-                                            <div class="stars">
-                                                <?php
-                                                for ($i = 1; $i <= 5; $i++) {
-                                                    echo ($i <= $random_rating) ? '<i class="fas fa-star"></i>' : '<i class="far fa-star"></i>';
-                                                }
-                                                ?>
-                                            </div>
-                                            <span class="review-count">(<?php echo $random_review_count; ?>)</span>
-                                        </div>
-
-                                        <div class="product-price">
-                                            <?php echo number_format($item['price']); ?>원
-                                        </div>
-                                    </div>
-                                </form>
-                            </div>
-                        <?php endforeach; ?>
-                    </div>
-                </div>
-            <?php endif; ?>
         </div>
     </div>
 </div>
