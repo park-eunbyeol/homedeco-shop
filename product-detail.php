@@ -306,12 +306,20 @@ require_once 'includes/header.php';
                                             <div class="review-date"><?php echo format_date($review['created_at']); ?></div>
                                         </div>
                                     </div>
-                                    <div class="review-rating">
-                                        <?php
-                                        for ($i = 1; $i <= 5; $i++) {
-                                            echo ($i <= $review['rating']) ? '<i class="fas fa-star"></i>' : '<i class="far fa-star"></i>';
-                                        }
-                                        ?>
+                                    <div class="review-meta-right">
+                                        <div class="review-rating">
+                                            <?php
+                                            for ($i = 1; $i <= 5; $i++) {
+                                                echo ($i <= $review['rating']) ? '<i class="fas fa-star"></i>' : '<i class="far fa-star"></i>';
+                                            }
+                                            ?>
+                                        </div>
+                                        <?php if (is_logged_in() && ($_SESSION['user_id'] == $review['user_id'] || is_admin())): ?>
+                                            <button class="btn-delete-review"
+                                                onclick="deleteReview(<?php echo $review['review_id']; ?>)" title="리뷰 삭제">
+                                                <i class="fas fa-times"></i>
+                                            </button>
+                                        <?php endif; ?>
                                     </div>
                                 </div>
                                 <div class="review-body">
@@ -859,6 +867,27 @@ require_once 'includes/header.php';
             position: static;
         }
     }
+
+    .review-meta-right {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-end;
+        gap: 8px;
+    }
+
+    .btn-delete-review {
+        background: none;
+        border: none;
+        color: #ccc;
+        cursor: pointer;
+        padding: 5px;
+        transition: color 0.3s;
+        font-size: 14px;
+    }
+
+    .btn-delete-review:hover {
+        color: var(--danger-color);
+    }
 </style>
 
 <script>
@@ -1080,6 +1109,35 @@ require_once 'includes/header.php';
                     }, 1000);
                 } else {
                     showNotification(result.message || '리뷰 등록 실패', 'error');
+                }
+            })
+            .catch(error => {
+                showNotification('서버 통신 오류', 'error');
+                console.error(error);
+            });
+    }
+
+    function deleteReview(reviewId) {
+        if (!confirm('정말로 이 리뷰를 삭제하시겠습니까?')) return;
+
+        fetch('/homedeco-shop/api/review-delete.php', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                review_id: reviewId
+            })
+        })
+            .then(response => response.json())
+            .then(result => {
+                if (result.success) {
+                    showNotification('리뷰가 삭제되었습니다', 'success');
+                    setTimeout(() => {
+                        window.location.reload();
+                    }, 1000);
+                } else {
+                    showNotification(result.message || '리뷰 삭제 실패', 'error');
                 }
             })
             .catch(error => {

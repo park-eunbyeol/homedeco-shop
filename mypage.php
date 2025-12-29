@@ -269,7 +269,7 @@ require_once 'includes/header.php';
                 <?php if ($reviews->num_rows > 0): ?>
                     <div class="my-reviews-list">
                         <?php while ($review = $reviews->fetch_assoc()): ?>
-                            <div class="my-review-card">
+                            <div class="my-review-card" id="review-<?php echo $review['review_id']; ?>">
                                 <div class="review-product">
                                     <img src="<?php echo htmlspecialchars($review['main_image']); ?>"
                                         alt="<?php echo htmlspecialchars($review['product_name']); ?>"
@@ -279,11 +279,17 @@ require_once 'includes/header.php';
                                         <p class="review-date"><?php echo format_date($review['created_at']); ?></p>
                                     </div>
                                 </div>
-                                <div class="review-content">
+                                <div class="review-content" style="position: relative;">
                                     <div class="review-rating">
                                         <?php for ($i = 1; $i <= 5; $i++) {
                                             echo ($i <= $review['rating']) ? '<i class="fas fa-star"></i>' : '<i class="far fa-star"></i>';
                                         } ?>
+                                    </div>
+                                    <div class="review-meta-right" style="position: absolute; right: 0; top: 0;">
+                                        <button class="btn-delete-review"
+                                            onclick="deleteReview(<?php echo $review['review_id']; ?>)" title="리뷰 삭제">
+                                            <i class="fas fa-trash"></i> 삭제
+                                        </button>
                                     </div>
                                     <h4><?php echo htmlspecialchars($review['title']); ?></h4>
                                     <p><?php echo nl2br(htmlspecialchars($review['content'])); ?></p>
@@ -630,6 +636,27 @@ require_once 'includes/header.php';
 </script>
 
 <style>
+    .my-review-card {
+        position: relative;
+    }
+
+    .btn-delete-review {
+        background: none;
+        border: 1px solid #eee;
+        color: #999;
+        cursor: pointer;
+        padding: 4px 12px;
+        border-radius: 4px;
+        transition: all 0.3s;
+        font-size: 13px;
+    }
+
+    .btn-delete-review:hover {
+        color: #e74c3c;
+        border-color: #e74c3c;
+        background: #fff5f5;
+    }
+
     .mypage-layout {
         display: grid;
         grid-template-columns: 280px 1fr;
@@ -1349,5 +1376,30 @@ require_once 'includes/header.php';
                 }
             }, 300);
         }
-    }
+        function deleteReview(reviewId) {
+            if (!confirm('정말로 이 리뷰를 삭제하시겠습니까?')) return;
+
+            fetch('/homedeco-shop/api/review-delete.php', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    review_id: reviewId
+                })
+            })
+                .then(response => response.json())
+                .then(result => {
+                    if (result.success) {
+                        alert('리뷰가 삭제되었습니다.');
+                        window.location.reload();
+                    } else {
+                        alert(result.message || '리뷰 삭제 실패');
+                    }
+                })
+                .catch(error => {
+                    alert('서버 통신 오류가 발생했습니다.');
+                    console.error(error);
+                });
+        }
 </script>
