@@ -464,9 +464,12 @@ body.page-index .view-all {
 }
 
 .tab-label {
-    font-size: 14px;
-    font-weight: 800;
-    letter-spacing: 1px;
+    font-family: 'Playfair Display', serif;
+    font-size: 16px;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    font-style: italic;
+    /* 약간의 기울임으로 더 우아하게 */
 }
 
 .tab-sub {

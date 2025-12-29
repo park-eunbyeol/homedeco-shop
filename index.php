@@ -66,33 +66,33 @@ require_once 'includes/header.php';
     <!-- 카테고리 탭 섹션 -->
     <section class="collection-section categories">
         <div class="section-title-wrapper" style="text-align: center; margin-bottom: 40px;">
-            <h2 class="section-title">카테고리</h2>
-            <p class="section-subtitle">Shop by Category - 당신의 취향을 저격할 특별한 공간 큐레이션</p>
+            <h2 class="section-title">Category</h2>
+            <p class="section-subtitle">당신의 취향을 담은 특별한 공간 큐레이션</p>
         </div>
 
         <div class="category-tabs">
             <button class="tab-item active" data-category="new">
-                <span class="tab-label">NEW</span>
+                <span class="tab-label">New Arrivals</span>
                 <span class="tab-sub">신상품</span>
             </button>
             <button class="tab-item" data-category="1">
-                <span class="tab-label">LIVING</span>
+                <span class="tab-label">Living</span>
                 <span class="tab-sub">거실</span>
             </button>
             <button class="tab-item" data-category="2">
-                <span class="tab-label">BEDROOM</span>
+                <span class="tab-label">Bedroom</span>
                 <span class="tab-sub">침실</span>
             </button>
             <button class="tab-item" data-category="3">
-                <span class="tab-label">KITCHEN</span>
+                <span class="tab-label">Kitchen</span>
                 <span class="tab-sub">주방</span>
             </button>
             <button class="tab-item" data-category="4">
-                <span class="tab-label">LIGHTING</span>
+                <span class="tab-label">Lighting</span>
                 <span class="tab-sub">조명</span>
             </button>
             <button class="tab-item" data-category="5">
-                <span class="tab-label">DECOR</span>
+                <span class="tab-label">Objects</span>
                 <span class="tab-sub">소품</span>
             </button>
         </div>
