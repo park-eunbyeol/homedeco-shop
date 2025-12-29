@@ -932,6 +932,7 @@ require_once 'includes/header.php';
     @media (max-width: 1024px) {
         .mypage-layout {
             grid-template-columns: 1fr;
+            gap: 30px;
         }
 
         .mypage-sidebar {
@@ -940,6 +941,7 @@ require_once 'includes/header.php';
 
         .stats-grid {
             grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
         }
     }
 
@@ -1046,6 +1048,79 @@ require_once 'includes/header.php';
     @media (max-width: 768px) {
         .wishlist-grid {
             grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+        }
+
+        .user-profile {
+            display: flex;
+            align-items: center;
+            text-align: left;
+            gap: 20px;
+            padding: 20px;
+        }
+
+        .user-avatar {
+            margin: 0;
+            width: 60px;
+            height: 60px;
+            font-size: 24px;
+        }
+
+        .mypage-nav {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 8px;
+            background: transparent;
+            border: none;
+        }
+
+        .nav-link {
+            background: white;
+            border: 1px solid var(--border-color) !important;
+            border-radius: 10px;
+            padding: 12px 5px;
+            text-align: center;
+            font-size: 12px;
+        }
+
+        .nav-link i {
+            display: block;
+            margin: 0 auto 5px;
+            font-size: 18px;
+            width: auto;
+        }
+
+        .nav-link.active {
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+        }
+
+        .order-header {
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 10px;
+        }
+
+        .order-actions {
+            flex-wrap: wrap;
+        }
+
+        .order-actions .btn {
+            flex: 1;
+            min-width: calc(50% - 5px);
+        }
+
+        .cart-item-row {
+            flex-direction: column !important;
+            align-items: flex-start !important;
+            gap: 15px !important;
+        }
+
+        .cart-item-row>div:last-child {
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            text-align: left !important;
         }
     }
 
@@ -1124,7 +1199,7 @@ require_once 'includes/header.php';
         background: #fff;
         position: relative;
         transition: all 0.3s ease;
-        box-shadow: 0 2px 10px rgba(0,0,0,0.03);
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.03);
     }
 
     .btn-cancel-coupon {
@@ -1201,26 +1276,36 @@ require_once 'includes/header.php';
         color: #333;
     }
 
-    @media (max-width: 768px) {
+    @media (max-width: 576px) {
+        .mypage-nav {
+            grid-template-columns: repeat(2, 1fr);
+        }
+
+        .stat-card {
+            padding: 15px;
+            gap: 10px;
+        }
+
+        .stat-icon {
+            width: 45px;
+            height: 45px;
+            font-size: 20px;
+        }
+
+        .stat-info h3 {
+            font-size: 18px;
+        }
+
         .coupon-list-grid {
             grid-template-columns: 1fr;
         }
 
-        .c-left {
-            width: 80px;
-            padding: 15px;
+        .section-header h2 {
+            font-size: 22px;
         }
 
-        .c-right {
-            padding: 15px;
-        }
-
-        .c-right h4 {
-            font-size: 15px;
-        }
-
-        .c-right p {
-            font-size: 12px;
+        .wishlist-grid {
+            grid-template-columns: 1fr;
         }
     }
 
