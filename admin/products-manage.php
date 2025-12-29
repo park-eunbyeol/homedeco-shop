@@ -272,6 +272,7 @@ $categories = $conn->query("SELECT * FROM categories ORDER BY name");
                                 <?= htmlspecialchars($cat['name']) ?>
                             </option>
                         <?php endwhile; ?>
+                    </select>
                     <select name="filter" onchange="this.form.submit()" class="status-select">
                         <option value="">전체 상태</option>
                         <option value="no_image" <?= $filter === 'no_image' ? 'selected' : '' ?>>이미지 없는 상품</option>
@@ -440,6 +441,11 @@ $categories = $conn->query("SELECT * FROM categories ORDER BY name");
     </div>
 
     <script>
+        function toggleSidebar() {
+            document.querySelector('.admin-sidebar').classList.toggle('active');
+            document.getElementById('sidebarOverlay').classList.toggle('active');
+        }
+
         function showAddProduct() {
             document.getElementById('modalTitle').textContent = '상품 추가';
             document.getElementById('productForm').reset();
@@ -513,6 +519,13 @@ $categories = $conn->query("SELECT * FROM categories ORDER BY name");
             }
         }
     </script>
+    </div>
+
+    <!-- 모바일 메뉴 토글 버튼 -->
+    <button class="mobile-toggle" onclick="toggleSidebar()">
+        <i class="fas fa-bars"></i>
+    </button>
+    <div class="sidebar-overlay" id="sidebarOverlay" onclick="toggleSidebar()"></div>
 </body>
 
 </html>

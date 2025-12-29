@@ -240,7 +240,20 @@ $notices = $conn->query("SELECT * FROM notices ORDER BY is_important DESC, creat
         </div>
     </div>
 
+    </div>
+
+    <!-- 모바일 메뉴 토글 버튼 -->
+    <button class="mobile-toggle" onclick="toggleSidebar()">
+        <i class="fas fa-bars"></i>
+    </button>
+    <div class="sidebar-overlay" id="sidebarOverlay" onclick="toggleSidebar()"></div>
+
     <script>
+        function toggleSidebar() {
+            document.querySelector('.admin-sidebar').classList.toggle('active');
+            document.getElementById('sidebarOverlay').classList.toggle('active');
+        }
+
         const modal = document.getElementById('noticeModal');
 
         function openModal() {

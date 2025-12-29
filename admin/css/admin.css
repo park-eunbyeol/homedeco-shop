@@ -351,3 +351,113 @@ body {
 .reply-form textarea:focus {
     border-color: var(--accent-color);
 }
+
+/* Mobile Responsive Styles */
+@media (max-width: 1024px) {
+    :root {
+        --sidebar-width: 240px;
+    }
+
+    .admin-sidebar {
+        left: -260px;
+        transition: transform 0.3s ease;
+    }
+
+    .admin-sidebar.active {
+        transform: translateX(260px);
+    }
+
+    .admin-main {
+        margin-left: 0 !important;
+        padding: 20px;
+    }
+
+    .stats-grid {
+        grid-template-columns: repeat(2, 1fr) !important;
+    }
+
+    .menu-grid {
+        grid-template-columns: 1fr !important;
+    }
+}
+
+@media (max-width: 768px) {
+    .stats-grid {
+        grid-template-columns: 1fr !important;
+    }
+
+    .filter-bar {
+        flex-direction: column !important;
+        align-items: stretch !important;
+    }
+
+    .page-title {
+        flex-direction: column !important;
+        align-items: flex-start !important;
+        gap: 15px !important;
+        font-size: 22px !important;
+    }
+
+    .admin-table {
+        display: block !important;
+        overflow-x: auto !important;
+        white-space: nowrap !important;
+    }
+
+    .modal-content {
+        width: 100% !important;
+        border-radius: 0 !important;
+        height: 100% !important;
+        max-height: 100vh !important;
+    }
+
+    .modal-body {
+        padding: 20px !important;
+    }
+}
+
+/* Mobile Toggle Button */
+.mobile-toggle {
+    display: none;
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    width: 60px;
+    height: 60px;
+    background: #2c3e50;
+    color: white;
+    border-radius: 50%;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+    z-index: 1001;
+    cursor: pointer;
+    border: none;
+    transition: all 0.3s;
+}
+
+.mobile-toggle:active {
+    transform: scale(0.9);
+}
+
+@media (max-width: 1024px) {
+    .mobile-toggle {
+        display: flex;
+    }
+}
+
+.sidebar-overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 99;
+}
+
+.sidebar-overlay.active {
+    display: block;
+}

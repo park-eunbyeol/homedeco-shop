@@ -242,7 +242,20 @@ if (isset($_GET['action']) && $_GET['action'] == 'reset_orders') {
         </main>
     </div>
 
+    </div>
+
+    <!-- 모바일 메뉴 토글 버튼 -->
+    <button class="mobile-toggle" onclick="toggleSidebar()">
+        <i class="fas fa-bars"></i>
+    </button>
+    <div class="sidebar-overlay" id="sidebarOverlay" onclick="toggleSidebar()"></div>
+
     <script>
+        function toggleSidebar() {
+            document.querySelector('.admin-sidebar').classList.toggle('active');
+            document.getElementById('sidebarOverlay').classList.toggle('active');
+        }
+
         function cancelOrder(orderId) {
             if (confirm('정말 이 주문의 결제를 취소하시겠습니까? (복구 불가)')) {
                 fetch('order-cancel.php', {

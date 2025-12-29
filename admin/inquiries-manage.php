@@ -177,7 +177,20 @@ $result = $conn->query($sql);
         </main>
     </div>
 
+    </div>
+
+    <!-- 모바일 메뉴 토글 버튼 -->
+    <button class="mobile-toggle" onclick="toggleSidebar()">
+        <i class="fas fa-bars"></i>
+    </button>
+    <div class="sidebar-overlay" id="sidebarOverlay" onclick="toggleSidebar()"></div>
+
     <script>
+        function toggleSidebar() {
+            document.querySelector('.admin-sidebar').classList.toggle('active');
+            document.getElementById('sidebarOverlay').classList.toggle('active');
+        }
+
         function deleteInquiry(id) {
             if (confirm('정말 이 문의글을 삭제하시겠습니까?')) {
                 location.href = 'inquiry-delete.php?id=' + id;

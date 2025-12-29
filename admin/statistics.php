@@ -416,6 +416,19 @@ $top_products = $conn->query("
                 plugins: { legend: { display: false } }
             }
         });
+    </div>
+
+    <!-- 모바일 메뉴 토글 버튼 -->
+    <button class="mobile-toggle" onclick="toggleSidebar()">
+        <i class="fas fa-bars"></i>
+    </button>
+    <div class="sidebar-overlay" id="sidebarOverlay" onclick="toggleSidebar()"></div>
+
+    <script>
+        function toggleSidebar() {
+            document.querySelector('.admin-sidebar').classList.toggle('active');
+            document.getElementById('sidebarOverlay').classList.toggle('active');
+        }
     </script>
 </body>
 

@@ -127,7 +127,20 @@ $categories = $conn->query("SELECT * FROM categories ORDER BY name");
         </main>
     </div>
 
+    </div>
+
+    <!-- 모바일 메뉴 토글 버튼 -->
+    <button class="mobile-toggle" onclick="toggleSidebar()">
+        <i class="fas fa-bars"></i>
+    </button>
+    <div class="sidebar-overlay" id="sidebarOverlay" onclick="toggleSidebar()"></div>
+
     <script>
+        function toggleSidebar() {
+            document.querySelector('.admin-sidebar').classList.toggle('active');
+            document.getElementById('sidebarOverlay').classList.toggle('active');
+        }
+
         document.getElementById('importForm').addEventListener('submit', async function (e) {
             e.preventDefault();
             const btn = document.getElementById('submitBtn');
