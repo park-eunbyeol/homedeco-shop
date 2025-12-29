@@ -1051,76 +1051,115 @@ require_once 'includes/header.php';
             gap: 15px;
         }
 
-        .user-profile {
-            display: flex;
-            align-items: center;
-            text-align: left;
+        /* 모바일 전체 레이아웃 조정 */
+        .mypage-layout {
             gap: 20px;
-            padding: 20px;
+            margin: 20px 0;
+        }
+
+        /* 1. 상단 프로필 영역 개선 */
+        .user-profile {
+            display: flex !important;
+            flex-direction: row !important;
+            align-items: center !important;
+            text-align: left !important;
+            gap: 15px !important;
+            padding: 20px !important;
+            background: #fff;
+            border-radius: 12px;
+            border: 1px solid #f0f0f0;
         }
 
         .user-avatar {
-            margin: 0;
-            width: 60px;
-            height: 60px;
-            font-size: 24px;
+            margin: 0 !important;
+            width: 55px !important;
+            height: 55px !important;
+            font-size: 22px !important;
+            flex-shrink: 0;
         }
 
+        .user-profile h3 {
+            font-size: 18px !important;
+            margin: 0 0 2px 0 !important;
+        }
+
+        .user-profile p {
+            font-size: 13px !important;
+            margin: 0 !important;
+            color: #888;
+        }
+
+        /* 2. 내비게이션 메뉴 그리드 - 2열 고정 및 항목 가시성 확보 */
         .mypage-nav {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 8px;
-            background: transparent;
-            border: none;
+            display: grid !important;
+            grid-template-columns: repeat(2, 1fr) !important;
+            gap: 10px !important;
+            background: transparent !important;
+            border: none !important;
+            padding: 0 !important;
+            margin: 20px 0 !important;
         }
 
         .nav-link {
-            background: white;
-            border: 1px solid var(--border-color) !important;
-            border-radius: 10px;
-            padding: 12px 5px;
-            text-align: center;
-            font-size: 12px;
+            background: #ffffff !important;
+            border: 1px solid #eee !important;
+            border-radius: 12px !important;
+            padding: 18px 10px !important;
+            display: flex !important;
+            flex-direction: column !important;
+            align-items: center !important;
+            justify-content: center !important;
+            gap: 8px !important;
+            text-decoration: none !important;
+            height: auto !important;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.03) !important;
+            transition: all 0.2s ease !important;
+        }
+
+        /* 비활성 링크 텍스트/아이콘 색상 강제 지정 */
+        .nav-link,
+        .nav-link span,
+        .nav-link i {
+            color: #444 !important;
+            font-size: 13px !important;
+            font-weight: 500 !important;
         }
 
         .nav-link i {
-            display: block;
-            margin: 0 auto 5px;
-            font-size: 18px;
-            width: auto;
+            font-size: 20px !important;
+            color: #666 !important;
+            margin: 0 !important;
+            width: auto !important;
+            display: block !important;
         }
 
+        /* 활성 상태 (브라운 색상 유지) */
         .nav-link.active {
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            background: var(--secondary-color) !important;
+            border-color: var(--secondary-color) !important;
         }
 
+        .nav-link.active,
+        .nav-link.active i {
+            color: #ffffff !important;
+        }
+
+        /* 로그아웃 버튼 별도 스타일 */
+        .mobile-only-logout {
+            display: flex !important;
+            border-color: #ffeaea !important;
+        }
+
+        .mobile-only-logout i,
+        .mobile-only-logout {
+            color: #e74c3c !important;
+        }
+
+        /* 주문 현황 및 카드 레이아웃 */
         .order-header {
             flex-direction: column;
             align-items: flex-start;
-            gap: 10px;
-        }
-
-        .order-actions {
-            flex-wrap: wrap;
-        }
-
-        .order-actions .btn {
-            flex: 1;
-            min-width: calc(50% - 5px);
-        }
-
-        .cart-item-row {
-            flex-direction: column !important;
-            align-items: flex-start !important;
-            gap: 15px !important;
-        }
-
-        .cart-item-row>div:last-child {
-            width: 100%;
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-end;
-            text-align: left !important;
+            gap: 8px;
         }
 
         .order-body {
@@ -1128,27 +1167,15 @@ require_once 'includes/header.php';
             gap: 5px;
         }
 
-        .order-total {
-            font-size: 18px;
-        }
-
-        .form-actions {
-            flex-direction: column;
-        }
-
-        .form-actions .btn {
-            width: 100%;
+        .cart-item-row {
+            flex-direction: column !important;
+            align-items: flex-start !important;
+            padding: 15px !important;
         }
 
         .cart-summary {
             text-align: center !important;
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-        }
-
-        .cart-summary span {
-            margin-right: 0 !important;
+            padding: 15px !important;
         }
     }
 
@@ -1306,7 +1333,7 @@ require_once 'includes/header.php';
 
     @media (max-width: 576px) {
         .mypage-nav {
-            grid-template-columns: repeat(2, 1fr);
+            grid-template-columns: repeat(2, 1fr) !important;
         }
 
         .stat-card {
