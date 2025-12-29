@@ -130,7 +130,7 @@
                 ?>
 
                 <a href="/homedeco-shop/wishlist.php" class="emoji-icon" title="위시리스트"
-                    style="text-decoration: none; color: #444; margin: 0 8px;">
+                    style="text-decoration: none; color: #444;">
                     <i class="fa-regular fa-heart" style="font-size: 18px;"></i>
                     <?php if ($wishlist_count > 0): ?>
                         <span class="icon-badge wishlist-count"><?php echo $wishlist_count; ?></span>
@@ -138,7 +138,7 @@
                 </a>
 
                 <a href="/homedeco-shop/cart.php" class="emoji-icon" title="장바구니"
-                    style="text-decoration: none; color: #444; margin: 0 8px;">
+                    style="text-decoration: none; color: #444;">
                     <i class="fa-solid fa-cart-shopping" style="font-size: 18px;"></i>
                     <?php if ($cart_count > 0): ?>
                         <span class="icon-badge cart-count"><?php echo $cart_count; ?></span>
@@ -146,20 +146,20 @@
                 </a>
 
                 <?php if (isset($_SESSION['user_id'])): ?>
-                    <a href="/homedeco-shop/mypage.php" class="user-name-link" title="마이페이지" style="margin-left: 10px;">
+                    <a href="/homedeco-shop/mypage.php" class="user-name-link" title="마이페이지">
                         <span class="user-greeting"
                             style="font-size: 14px; color: #333;"><strong><?php echo htmlspecialchars($_SESSION['name']); ?></strong>님</span>
                     </a>
                 <?php else: ?>
                     <a href="/homedeco-shop/login.php" class="emoji-icon" title="로그인"
-                        style="text-decoration: none; color: #444; margin: 0 8px;"><i class="fa-regular fa-user"
+                        style="text-decoration: none; color: #444;"><i class="fa-regular fa-user"
                             style="font-size: 18px;"></i></a>
                 <?php endif; ?>
 
                 <?php if (isset($_SESSION['user_id'])): ?>
                     <a href="/homedeco-shop/logout.php" class="emoji-icon" title="로그아웃"
-                        style="text-decoration: none; color: #444; margin: 0 8px;"><i
-                            class="fa-solid fa-arrow-right-from-bracket" style="font-size: 18px;"></i></a>
+                        style="text-decoration: none; color: #444;"><i class="fa-solid fa-arrow-right-from-bracket"
+                            style="font-size: 18px;"></i></a>
                 <?php endif; ?>
             </div>
             <button class="hamburger-btn" id="hamburgerBtn"

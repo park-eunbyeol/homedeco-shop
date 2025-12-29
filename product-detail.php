@@ -467,17 +467,21 @@ require_once 'includes/header.php';
 
     .product-title {
         font-family: 'Playfair Display', serif;
-        font-size: 36px;
-        margin-bottom: 20px;
+        font-size: 40px;
+        /* 크기를 더 키워 존재감 확보 */
+        font-weight: 800;
+        /* 확실하게 두껍게 설정 */
+        line-height: 1.2;
+        margin-bottom: 25px;
         color: var(--primary-color);
-        letter-spacing: -0.5px;
+        letter-spacing: -1px;
     }
 
     .product-rating-detail {
         display: flex;
         align-items: center;
         gap: 10px;
-        margin-bottom: 25px;
+        margin-bottom: 20px;
     }
 
     .rating-number {
@@ -486,24 +490,22 @@ require_once 'includes/header.php';
     }
 
     .product-price-detail {
-        padding: 25px 0;
+        padding: 20px 0;
         border-top: 1px solid var(--border-color);
         border-bottom: 1px solid var(--border-color);
-        margin-bottom: 30px;
+        margin-bottom: 20px;
     }
 
     .product-price-detail .price {
-        font-family: 'Playfair Display', serif;
-        font-size: 36px;
+        font-size: 32px;
         font-weight: 700;
         color: var(--primary-color);
     }
 
     .product-description {
-        margin-bottom: 35px;
+        margin-bottom: 30px;
         line-height: 1.8;
-        color: var(--secondary-color);
-        font-size: 15px;
+        color: #666;
     }
 
     .product-stock {
