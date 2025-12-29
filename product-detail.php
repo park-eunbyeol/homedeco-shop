@@ -366,7 +366,7 @@ require_once 'includes/header.php';
                 <?php while ($related = $related_products->fetch_assoc()): ?>
                     <div class="product-card">
                         <div class="product-image">
-                            <a href="/product-detail.php?id=<?php echo $related['product_id']; ?>">
+                            <a href="product-detail.php?id=<?php echo $related['product_id']; ?>">
                                 <img src="<?php echo htmlspecialchars($related['main_image']); ?>"
                                     alt="<?php echo htmlspecialchars($related['name']); ?>"
                                     onerror="this.src='data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' width=\'300\' height=\'300\' viewBox=\'0 0 300 300\'%3E%3Crect width=\'300\' height=\'300\' fill=\'#f0f0f0\'/%3E%3Ctext x=\'50%25\' y=\'50%25\' font-family=\'Arial\' font-size=\'16\' fill=\'#999\' text-anchor=\'middle\' dy=\'.3em\'%3ENo Image%3C/text%3E%3C/svg%3E'">
@@ -374,7 +374,7 @@ require_once 'includes/header.php';
                         </div>
                         <div class="product-info">
                             <h3 class="product-name">
-                                <a href="/product-detail.php?id=<?php echo $related['product_id']; ?>">
+                                <a href="product-detail.php?id=<?php echo $related['product_id']; ?>">
                                     <?php echo htmlspecialchars($related['name']); ?>
                                 </a>
                             </h3>

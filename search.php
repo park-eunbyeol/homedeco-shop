@@ -78,13 +78,15 @@ if (!empty($search_query)) {
                         style="background: #fff; border: 1px solid #e0e0e0; border-radius: 12px; overflow: hidden; transition: all 0.3s;">
                         <div class="product-image"
                             style="position: relative; width: 100%; padding-top: 100%; overflow: hidden;">
-                            <img src="<?= htmlspecialchars($product['main_image']) ?>"
-                                alt="<?= htmlspecialchars($product['name']) ?>"
-                                style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover;"
-                                onerror="this.src='images/placeholder.jpg'">
+                            <a href="<?= htmlspecialchars($product['link'] ?? '#') ?>" target="_blank">
+                                <img src="<?= htmlspecialchars($product['main_image']) ?>"
+                                    alt="<?= htmlspecialchars($product['name']) ?>"
+                                    style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover;"
+                                    onerror="this.src='images/placeholder.jpg'">
+                            </a>
                             <?php if (!empty($product['brand'])): ?>
                                 <div
-                                    style="position: absolute; top: 10px; left: 10px; background: rgba(0,0,0,0.7); color: white; padding: 4px 8px; border-radius: 4px; font-size: 11px;">
+                                    style="position: absolute; top: 10px; left: 10px; background: rgba(0,0,0,0.7); color: white; padding: 4px 8px; border-radius: 4px; font-size: 11px; z-index: 5;">
                                     <?= htmlspecialchars($product['brand']) ?>
                                 </div>
                             <?php endif; ?>

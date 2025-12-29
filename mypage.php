@@ -271,13 +271,16 @@ require_once 'includes/header.php';
                         <?php while ($review = $reviews->fetch_assoc()): ?>
                             <div class="my-review-card" id="review-<?php echo $review['review_id']; ?>">
                                 <div class="review-product">
-                                    <img src="<?php echo htmlspecialchars($review['main_image']); ?>"
-                                        alt="<?php echo htmlspecialchars($review['product_name']); ?>"
-                                        onerror="this.src='https://placehold.co/80x80?text=No+Image'">
-                                    <div>
-                                        <h4><?php echo htmlspecialchars($review['product_name']); ?></h4>
-                                        <p class="review-date"><?php echo format_date($review['created_at']); ?></p>
-                                    </div>
+                                    <a href="product-detail.php?id=<?php echo $review['product_id']; ?>"
+                                        style="display: flex; gap: 15px; text-decoration: none; color: inherit; width: 100%;">
+                                        <img src="<?php echo htmlspecialchars($review['main_image']); ?>"
+                                            alt="<?php echo htmlspecialchars($review['product_name']); ?>"
+                                            onerror="this.src='https://placehold.co/80x80?text=No+Image'">
+                                        <div>
+                                            <h4><?php echo htmlspecialchars($review['product_name']); ?></h4>
+                                            <p class="review-date"><?php echo format_date($review['created_at']); ?></p>
+                                        </div>
+                                    </a>
                                 </div>
                                 <div class="review-content" style="position: relative;">
                                     <div class="review-rating">
