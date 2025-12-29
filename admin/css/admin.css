@@ -384,35 +384,81 @@ body {
 @media (max-width: 768px) {
     .stats-grid {
         grid-template-columns: 1fr !important;
+        gap: 15px !important;
+    }
+
+    .stat-card {
+        padding: 20px !important;
     }
 
     .filter-bar {
         flex-direction: column !important;
         align-items: stretch !important;
+        padding: 15px !important;
+        gap: 10px !important;
+    }
+
+    .search-wrapper,
+    .status-select {
+        width: 100% !important;
     }
 
     .page-title {
         flex-direction: column !important;
         align-items: flex-start !important;
-        gap: 15px !important;
-        font-size: 22px !important;
+        gap: 10px !important;
+        font-size: 20px !important;
+        margin-bottom: 25px !important;
+    }
+
+    /* Table optimization: Enable horizontal scroll but keep it clean */
+    .admin-table-wrapper {
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        margin-bottom: 20px;
+        border-radius: 12px;
+        border: 1px solid var(--border-color);
     }
 
     .admin-table {
-        display: block !important;
-        overflow-x: auto !important;
-        white-space: nowrap !important;
+        min-width: 600px;
+        /* Force minimum width to allow scrolling instead of squishing */
     }
 
+    .admin-table th,
+    .admin-table td {
+        padding: 12px 15px !important;
+        font-size: 13px !important;
+    }
+
+    /* Modal optimization */
     .modal-content {
         width: 100% !important;
-        border-radius: 0 !important;
+        max-width: 100% !important;
         height: 100% !important;
-        max-height: 100vh !important;
+        border-radius: 0 !important;
+        margin: 0 !important;
+    }
+
+    .modal-header {
+        padding: 15px 20px !important;
     }
 
     .modal-body {
         padding: 20px !important;
+    }
+
+    /* Product Management Specific Grids (Inline styles workaround) */
+    [style*="display: grid"][style*="grid-template-columns: 1fr 1fr"],
+    [style*="display: grid"][style*="grid-template-columns: 1fr 1fr 1fr"] {
+        grid-template-columns: 1fr !important;
+        gap: 15px !important;
+    }
+
+    .action-btn {
+        width: 34px !important;
+        height: 34px !important;
+        font-size: 14px !important;
     }
 }
 

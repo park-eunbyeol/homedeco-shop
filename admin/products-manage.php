@@ -283,86 +283,88 @@ $categories = $conn->query("SELECT * FROM categories ORDER BY name");
 
             <!-- 목록 테이블 -->
             <div class="admin-card">
-                <table class="admin-table">
-                    <thead>
-                        <tr>
-                            <th style="width: 80px;">이미지</th>
-                            <th>상품 정보</th>
-                            <th style="width: 150px;">카테고리</th>
-                            <th style="width: 120px;">가격</th>
-                            <th style="width: 100px;">재고</th>
-                            <th style="width: 100px;">상태</th>
-                            <th style="width: 160px; text-align: center;">관리</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <?php if ($products->num_rows > 0): ?>
-                            <?php while ($product = $products->fetch_assoc()): ?>
-                                <tr>
-                                    <td>
-                                        <img src="<?= htmlspecialchars($product['main_image']) ?>"
-                                            alt="<?= htmlspecialchars($product['name']) ?>" class="product-thumb"
-                                            onerror="this.src='https://placehold.co/60x60?text=No+Image'">
-                                    </td>
-                                    <td>
-                                        <div style="font-weight: 700; font-size: 15px; margin-bottom: 4px;">
-                                            <?= htmlspecialchars($product['name']) ?>
-                                        </div>
-                                        <div style="color: #94a3b8; font-size: 12px;">
-                                            <?= htmlspecialchars(mb_substr($product['description'], 0, 40)) ?>...
-                                        </div>
-                                    </td>
-                                    <td><span
-                                            style="color: #64748b; font-size: 14px;"><?= htmlspecialchars($product['category_name']) ?></span>
-                                    </td>
-                                    <td><strong><?= number_format($product['price']) ?>원</strong></td>
-                                    <td>
-                                        <span
-                                            class="stock-badge <?= $product['stock'] > 10 ? 'stock-good' : ($product['stock'] > 0 ? 'stock-low' : 'stock-out') ?>">
-                                            <?= $product['stock'] ?>개
-                                        </span>
-                                    </td>
-                                    <td>
-                                        <?php if (!$product['is_active']): ?>
-                                            <span class="badge badge-muted">판매중지</span>
-                                        <?php elseif ($product['stock'] <= 0): ?>
-                                            <span class="badge badge-danger">판매중지(품절)</span>
-                                        <?php else: ?>
-                                            <span class="badge badge-success">판매중</span>
-                                        <?php endif; ?>
-                                    </td>
-                                    <td style="text-align: center;">
-                                        <div style="display: flex; gap: 8px; justify-content: center;">
-                                            <button onclick="editProduct(<?= $product['product_id'] ?>)"
-                                                class="action-btn btn-edit" title="수정">
-                                                <i class="fas fa-edit"></i>
-                                            </button>
-                                            <button
-                                                onclick="toggleProduct(<?= $product['product_id'] ?>, <?= $product['is_active'] ?>)"
-                                                class="action-btn btn-toggle" title="상태변경">
-                                                <i class="fas fa-power-off"></i>
-                                            </button>
-                                            <?php if (is_super_admin()): ?>
-                                            <button onclick="deleteProduct(<?= $product['product_id'] ?>)"
-                                                class="action-btn btn-delete" title="삭제">
-                                                <i class="fas fa-trash"></i>
-                                            </button>
+                <div class="admin-table-wrapper">
+                    <table class="admin-table">
+                        <thead>
+                            <tr>
+                                <th style="width: 80px;">이미지</th>
+                                <th>상품 정보</th>
+                                <th style="width: 150px;">카테고리</th>
+                                <th style="width: 120px;">가격</th>
+                                <th style="width: 100px;">재고</th>
+                                <th style="width: 100px;">상태</th>
+                                <th style="width: 160px; text-align: center;">관리</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php if ($products->num_rows > 0): ?>
+                                <?php while ($product = $products->fetch_assoc()): ?>
+                                    <tr>
+                                        <td>
+                                            <img src="<?= htmlspecialchars($product['main_image']) ?>"
+                                                alt="<?= htmlspecialchars($product['name']) ?>" class="product-thumb"
+                                                onerror="this.src='https://placehold.co/60x60?text=No+Image'">
+                                        </td>
+                                        <td>
+                                            <div style="font-weight: 700; font-size: 15px; margin-bottom: 4px;">
+                                                <?= htmlspecialchars($product['name']) ?>
+                                            </div>
+                                            <div style="color: #94a3b8; font-size: 12px;">
+                                                <?= htmlspecialchars(mb_substr($product['description'], 0, 40)) ?>...
+                                            </div>
+                                        </td>
+                                        <td><span
+                                                style="color: #64748b; font-size: 14px;"><?= htmlspecialchars($product['category_name']) ?></span>
+                                        </td>
+                                        <td><strong><?= number_format($product['price']) ?>원</strong></td>
+                                        <td>
+                                            <span
+                                                class="stock-badge <?= $product['stock'] > 10 ? 'stock-good' : ($product['stock'] > 0 ? 'stock-low' : 'stock-out') ?>">
+                                                <?= $product['stock'] ?>개
+                                            </span>
+                                        </td>
+                                        <td>
+                                            <?php if (!$product['is_active']): ?>
+                                                <span class="badge badge-muted">판매중지</span>
+                                            <?php elseif ($product['stock'] <= 0): ?>
+                                                <span class="badge badge-danger">판매중지(품절)</span>
+                                            <?php else: ?>
+                                                <span class="badge badge-success">판매중</span>
                                             <?php endif; ?>
-                                        </div>
+                                        </td>
+                                        <td style="text-align: center;">
+                                            <div style="display: flex; gap: 8px; justify-content: center;">
+                                                <button onclick="editProduct(<?= $product['product_id'] ?>)"
+                                                    class="action-btn btn-edit" title="수정">
+                                                    <i class="fas fa-edit"></i>
+                                                </button>
+                                                <button
+                                                    onclick="toggleProduct(<?= $product['product_id'] ?>, <?= $product['is_active'] ?>)"
+                                                    class="action-btn btn-toggle" title="상태변경">
+                                                    <i class="fas fa-power-off"></i>
+                                                </button>
+                                                <?php if (is_super_admin()): ?>
+                                                    <button onclick="deleteProduct(<?= $product['product_id'] ?>)"
+                                                        class="action-btn btn-delete" title="삭제">
+                                                        <i class="fas fa-trash"></i>
+                                                    </button>
+                                                <?php endif; ?>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                <?php endwhile; ?>
+                            <?php else: ?>
+                                <tr>
+                                    <td colspan="7" style="padding: 100px 0; text-align: center; color: #94a3b8;">
+                                        <i class="fas fa-box-open"
+                                            style="font-size: 48px; display: block; margin-bottom: 20px; opacity: 0.2;"></i>
+                                        등록된 상품이 없습니다.
                                     </td>
                                 </tr>
-                            <?php endwhile; ?>
-                        <?php else: ?>
-                            <tr>
-                                <td colspan="7" style="padding: 100px 0; text-align: center; color: #94a3b8;">
-                                    <i class="fas fa-box-open"
-                                        style="font-size: 48px; display: block; margin-bottom: 20px; opacity: 0.2;"></i>
-                                    등록된 상품이 없습니다.
-                                </td>
-                            </tr>
-                        <?php endif; ?>
-                    </tbody>
-                </table>
+                            <?php endif; ?>
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </main>
     </div>

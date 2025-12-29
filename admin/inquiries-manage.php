@@ -107,72 +107,74 @@ $result = $conn->query($sql);
 
             <!-- 목록 테이블 -->
             <div class="admin-card">
-                <table class="admin-table">
-                    <thead>
-                        <tr>
-                            <th style="width: 60px;">ID</th>
-                            <th>제목</th>
-                            <th style="width: 150px;">작성자</th>
-                            <th style="width: 180px;">작성일</th>
-                            <th style="width: 120px;">상태</th>
-                            <th style="width: 140px; text-align: center;">관리</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <?php if ($result && $result->num_rows > 0): ?>
-                            <?php while ($row = $result->fetch_assoc()): ?>
-                                <tr>
-                                    <td><?= $row['inquiry_id'] ?></td>
-                                    <td>
-                                        <a href="inquiry-view.php?id=<?= $row['inquiry_id'] ?>"
-                                            style="text-decoration: none; color: inherit; font-weight: 500;">
-                                            <?php if (isset($row['is_private']) && $row['is_private']): ?>
-                                                <i class="fas fa-lock"
-                                                    style="color: #cbd5e1; font-size: 13px; margin-right: 8px;"></i>
-                                            <?php endif; ?>
-                                            <?= htmlspecialchars($row['subject']) ?>
-                                        </a>
-                                    </td>
-                                    <td><strong><?= htmlspecialchars($row['name']) ?></strong></td>
-                                    <td style="color: #94a3b8; font-size: 14px;">
-                                        <?= date('Y.m.d H:i', strtotime($row['created_at'])) ?>
-                                    </td>
-                                    <td>
-                                        <?php if ($row['status'] == 'pending'): ?>
-                                            <span class="badge badge-pending">답변대기</span>
-                                        <?php elseif ($row['status'] == 'answered'): ?>
-                                            <span class="badge badge-success">답변완료</span>
-                                        <?php else: ?>
-                                            <span class="badge badge-muted">처리완료</span>
-                                        <?php endif; ?>
-                                    </td>
-                                    <td style="text-align: center;">
-                                        <div style="display: flex; gap: 8px; justify-content: center;">
-                                            <a href="inquiry-view.php?id=<?= $row['inquiry_id'] ?>" class="action-btn btn-reply"
-                                                title="답변">
-                                                <i class="fas fa-reply"></i>
+                <div class="admin-table-wrapper">
+                    <table class="admin-table">
+                        <thead>
+                            <tr>
+                                <th style="width: 60px;">ID</th>
+                                <th>제목</th>
+                                <th style="width: 150px;">작성자</th>
+                                <th style="width: 180px;">작성일</th>
+                                <th style="width: 120px;">상태</th>
+                                <th style="width: 140px; text-align: center;">관리</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php if ($result && $result->num_rows > 0): ?>
+                                <?php while ($row = $result->fetch_assoc()): ?>
+                                    <tr>
+                                        <td><?= $row['inquiry_id'] ?></td>
+                                        <td>
+                                            <a href="inquiry-view.php?id=<?= $row['inquiry_id'] ?>"
+                                                style="text-decoration: none; color: inherit; font-weight: 500;">
+                                                <?php if (isset($row['is_private']) && $row['is_private']): ?>
+                                                    <i class="fas fa-lock"
+                                                        style="color: #cbd5e1; font-size: 13px; margin-right: 8px;"></i>
+                                                <?php endif; ?>
+                                                <?= htmlspecialchars($row['subject']) ?>
                                             </a>
-                                            <?php if (is_super_admin()): ?>
-                                                <button onclick="deleteInquiry(<?= $row['inquiry_id'] ?>)"
-                                                    class="action-btn btn-delete" title="삭제">
-                                                    <i class="fas fa-trash"></i>
-                                                </button>
+                                        </td>
+                                        <td><strong><?= htmlspecialchars($row['name']) ?></strong></td>
+                                        <td style="color: #94a3b8; font-size: 14px;">
+                                            <?= date('Y.m.d H:i', strtotime($row['created_at'])) ?>
+                                        </td>
+                                        <td>
+                                            <?php if ($row['status'] == 'pending'): ?>
+                                                <span class="badge badge-pending">답변대기</span>
+                                            <?php elseif ($row['status'] == 'answered'): ?>
+                                                <span class="badge badge-success">답변완료</span>
+                                            <?php else: ?>
+                                                <span class="badge badge-muted">처리완료</span>
                                             <?php endif; ?>
-                                        </div>
+                                        </td>
+                                        <td style="text-align: center;">
+                                            <div style="display: flex; gap: 8px; justify-content: center;">
+                                                <a href="inquiry-view.php?id=<?= $row['inquiry_id'] ?>"
+                                                    class="action-btn btn-reply" title="답변">
+                                                    <i class="fas fa-reply"></i>
+                                                </a>
+                                                <?php if (is_super_admin()): ?>
+                                                    <button onclick="deleteInquiry(<?= $row['inquiry_id'] ?>)"
+                                                        class="action-btn btn-delete" title="삭제">
+                                                        <i class="fas fa-trash"></i>
+                                                    </button>
+                                                <?php endif; ?>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                <?php endwhile; ?>
+                            <?php else: ?>
+                                <tr>
+                                    <td colspan="6" style="padding: 100px 0; text-align: center; color: #94a3b8;">
+                                        <i class="fas fa-inbox"
+                                            style="font-size: 48px; display: block; margin-bottom: 20px; opacity: 0.2;"></i>
+                                        문의 내역이 없습니다.
                                     </td>
                                 </tr>
-                            <?php endwhile; ?>
-                        <?php else: ?>
-                            <tr>
-                                <td colspan="6" style="padding: 100px 0; text-align: center; color: #94a3b8;">
-                                    <i class="fas fa-inbox"
-                                        style="font-size: 48px; display: block; margin-bottom: 20px; opacity: 0.2;"></i>
-                                    문의 내역이 없습니다.
-                                </td>
-                            </tr>
-                        <?php endif; ?>
-                    </tbody>
-                </table>
+                            <?php endif; ?>
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </main>
     </div>

@@ -152,92 +152,94 @@ if (isset($_GET['action']) && $_GET['action'] == 'reset_orders') {
 
             <!-- 목록 테이블 -->
             <div class="admin-card">
-                <table class="admin-table">
-                    <thead>
-                        <tr>
-                            <th style="width: 80px;">주문번호</th>
-                            <th>주문자 정보</th>
-                            <th>주문 상품</th>
-                            <th>결제 금액</th>
-                            <th>결제 키(Key)</th>
-                            <th style="width: 120px;">상태</th>
-                            <th style="width: 180px;">주문일시</th>
-                            <th style="width: 120px; text-align: center;">관리</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <?php if ($result && $result->num_rows > 0): ?>
-                            <?php while ($row = $result->fetch_assoc()): ?>
+                <div class="admin-table-wrapper">
+                    <table class="admin-table">
+                        <thead>
+                            <tr>
+                                <th style="width: 80px;">주문번호</th>
+                                <th>주문자 정보</th>
+                                <th>주문 상품</th>
+                                <th>결제 금액</th>
+                                <th>결제 키(Key)</th>
+                                <th style="width: 120px;">상태</th>
+                                <th style="width: 180px;">주문일시</th>
+                                <th style="width: 120px; text-align: center;">관리</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php if ($result && $result->num_rows > 0): ?>
+                                <?php while ($row = $result->fetch_assoc()): ?>
+                                    <tr>
+                                        <td><strong>#<?= $row['order_id'] ?></strong></td>
+                                        <td>
+                                            <?php if ($row['user_id']): ?>
+                                                <div style="font-weight: 600;">
+                                                    <?= htmlspecialchars($row['user_name'] ?? '회원') ?>
+                                                    <span
+                                                        style="font-size: 11px; color: #1a73e8; background: #e8f0fe; padding: 2px 6px; border-radius: 4px; margin-left: 5px;">회원</span>
+                                                </div>
+                                                <div style="font-size: 12px; color: #64748b;">
+                                                    <?= htmlspecialchars($row['email'] ?? '-') ?>
+                                                </div>
+                                            <?php else: ?>
+                                                <div style="font-weight: 600;">
+                                                    <?= htmlspecialchars($row['shipping_name'] ?: '비회원') ?>
+                                                    <span
+                                                        style="font-size: 11px; color: #64748b; background: #f1f5f9; padding: 2px 6px; border-radius: 4px; margin-left: 5px;">비회원</span>
+                                                </div>
+                                                <div style="font-size: 12px; color: #64748b;">
+                                                    <?= htmlspecialchars($row['shipping_phone'] ?? '-') ?>
+                                                </div>
+                                                <div
+                                                    style="font-size: 11px; color: #94a3b8; margin-top: 4px; border-top: 1px dashed #eee; padding-top: 4px;">
+                                                    <i class="fas fa-map-marker-alt"></i>
+                                                    <?= htmlspecialchars($row['shipping_address'] ?? '-') ?>
+                                                </div>
+                                            <?php endif; ?>
+                                        </td>
+                                        <td>
+                                            <div style="font-size: 13px; line-height: 1.5; color: #475569;">
+                                                <?= $row['item_details'] ?: '<span style="color: #cbd5e1;">상품 정보 없음</span>' ?>
+                                            </div>
+                                        </td>
+                                        <td><strong
+                                                style="color: var(--text-main);"><?= number_format($row['total_amount']) ?>원</strong>
+                                        </td>
+                                        <td><span class="payment-key"><?= $row['payment_key'] ?: '-' ?></span></td>
+                                        <td>
+                                            <?php if ($row['status'] == 'paid'): ?>
+                                                <span class="status-paid">결제완료</span>
+                                            <?php elseif ($row['status'] == 'cancelled'): ?>
+                                                <span class="status-cancelled">취소됨</span>
+                                            <?php else: ?>
+                                                <span class="badge badge-muted"><?= $row['status'] ?></span>
+                                            <?php endif; ?>
+                                        </td>
+                                        <td style="color: #64748b; font-size: 14px;"><?= $row['created_at'] ?></td>
+                                        <td style="text-align: center;">
+                                            <?php if ($row['status'] == 'paid' && $row['payment_key']): ?>
+                                                <button onclick="cancelOrder(<?= $row['order_id'] ?>)" class="action-btn btn-delete"
+                                                    title="결제 취소">
+                                                    <i class="fas fa-times"></i>
+                                                </button>
+                                            <?php else: ?>
+                                                <span style="color: #cbd5e1; font-size: 12px;">N/A</span>
+                                            <?php endif; ?>
+                                        </td>
+                                    </tr>
+                                <?php endwhile; ?>
+                            <?php else: ?>
                                 <tr>
-                                    <td><strong>#<?= $row['order_id'] ?></strong></td>
-                                    <td>
-                                        <?php if ($row['user_id']): ?>
-                                            <div style="font-weight: 600;">
-                                                <?= htmlspecialchars($row['user_name'] ?? '회원') ?>
-                                                <span
-                                                    style="font-size: 11px; color: #1a73e8; background: #e8f0fe; padding: 2px 6px; border-radius: 4px; margin-left: 5px;">회원</span>
-                                            </div>
-                                            <div style="font-size: 12px; color: #64748b;">
-                                                <?= htmlspecialchars($row['email'] ?? '-') ?>
-                                            </div>
-                                        <?php else: ?>
-                                            <div style="font-weight: 600;">
-                                                <?= htmlspecialchars($row['shipping_name'] ?: '비회원') ?>
-                                                <span
-                                                    style="font-size: 11px; color: #64748b; background: #f1f5f9; padding: 2px 6px; border-radius: 4px; margin-left: 5px;">비회원</span>
-                                            </div>
-                                            <div style="font-size: 12px; color: #64748b;">
-                                                <?= htmlspecialchars($row['shipping_phone'] ?? '-') ?>
-                                            </div>
-                                            <div
-                                                style="font-size: 11px; color: #94a3b8; margin-top: 4px; border-top: 1px dashed #eee; padding-top: 4px;">
-                                                <i class="fas fa-map-marker-alt"></i>
-                                                <?= htmlspecialchars($row['shipping_address'] ?? '-') ?>
-                                            </div>
-                                        <?php endif; ?>
-                                    </td>
-                                    <td>
-                                        <div style="font-size: 13px; line-height: 1.5; color: #475569;">
-                                            <?= $row['item_details'] ?: '<span style="color: #cbd5e1;">상품 정보 없음</span>' ?>
-                                        </div>
-                                    </td>
-                                    <td><strong
-                                            style="color: var(--text-main);"><?= number_format($row['total_amount']) ?>원</strong>
-                                    </td>
-                                    <td><span class="payment-key"><?= $row['payment_key'] ?: '-' ?></span></td>
-                                    <td>
-                                        <?php if ($row['status'] == 'paid'): ?>
-                                            <span class="status-paid">결제완료</span>
-                                        <?php elseif ($row['status'] == 'cancelled'): ?>
-                                            <span class="status-cancelled">취소됨</span>
-                                        <?php else: ?>
-                                            <span class="badge badge-muted"><?= $row['status'] ?></span>
-                                        <?php endif; ?>
-                                    </td>
-                                    <td style="color: #64748b; font-size: 14px;"><?= $row['created_at'] ?></td>
-                                    <td style="text-align: center;">
-                                        <?php if ($row['status'] == 'paid' && $row['payment_key']): ?>
-                                            <button onclick="cancelOrder(<?= $row['order_id'] ?>)" class="action-btn btn-delete"
-                                                title="결제 취소">
-                                                <i class="fas fa-times"></i>
-                                            </button>
-                                        <?php else: ?>
-                                            <span style="color: #cbd5e1; font-size: 12px;">N/A</span>
-                                        <?php endif; ?>
+                                    <td colspan="8" style="padding: 100px 0; text-align: center; color: #94a3b8;">
+                                        <i class="fas fa-receipt"
+                                            style="font-size: 48px; display: block; margin-bottom: 20px; opacity: 0.2;"></i>
+                                        주문 내역이 없습니다.
                                     </td>
                                 </tr>
-                            <?php endwhile; ?>
-                        <?php else: ?>
-                            <tr>
-                                <td colspan="8" style="padding: 100px 0; text-align: center; color: #94a3b8;">
-                                    <i class="fas fa-receipt"
-                                        style="font-size: 48px; display: block; margin-bottom: 20px; opacity: 0.2;"></i>
-                                    주문 내역이 없습니다.
-                                </td>
-                            </tr>
-                        <?php endif; ?>
-                    </tbody>
-                </table>
+                            <?php endif; ?>
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </main>
     </div>
