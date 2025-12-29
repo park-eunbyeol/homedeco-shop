@@ -466,16 +466,18 @@ require_once 'includes/header.php';
     }
 
     .product-title {
-        font-size: 32px;
+        font-family: 'Playfair Display', serif;
+        font-size: 36px;
         margin-bottom: 20px;
         color: var(--primary-color);
+        letter-spacing: -0.5px;
     }
 
     .product-rating-detail {
         display: flex;
         align-items: center;
         gap: 10px;
-        margin-bottom: 20px;
+        margin-bottom: 25px;
     }
 
     .rating-number {
@@ -484,22 +486,24 @@ require_once 'includes/header.php';
     }
 
     .product-price-detail {
-        padding: 20px 0;
+        padding: 25px 0;
         border-top: 1px solid var(--border-color);
         border-bottom: 1px solid var(--border-color);
-        margin-bottom: 20px;
+        margin-bottom: 30px;
     }
 
     .product-price-detail .price {
-        font-size: 32px;
+        font-family: 'Playfair Display', serif;
+        font-size: 36px;
         font-weight: 700;
         color: var(--primary-color);
     }
 
     .product-description {
-        margin-bottom: 30px;
+        margin-bottom: 35px;
         line-height: 1.8;
-        color: #666;
+        color: var(--secondary-color);
+        font-size: 15px;
     }
 
     .product-stock {

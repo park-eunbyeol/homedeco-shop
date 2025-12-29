@@ -53,15 +53,12 @@ require_once 'includes/header.php';
 <div class="container">
     <!-- 비회원 환영 배너 (로그인 안 했을 때만 표시) -->
     <?php if (!is_logged_in()): ?>
-        <section class="guest-welcome-banner"
-            style="margin: 60px auto; max-width: 1200px; background: linear-gradient(135deg, #fdfbfb 0%, #ebedee 100%); padding: 30px; border-radius: 20px; text-align: center; border: 1px solid #e0e0e0; box-shadow: 0 10px 30px rgba(0,0,0,0.05);">
-            <h3 style="color: #2c3e50; margin-bottom: 10px; font-size: 20px;">🚪 처음이신가요? 가입 없이 바로 쇼핑해보세요!</h3>
-            <p style="color: #7f8c8d; font-size: 15px; margin-bottom: 20px;">로그인 없이도 장바구니 이용 및 비회원 주문이 가능합니다.</p>
-            <div style="display: flex; justify-content: center; gap: 15px; flex-wrap: wrap;">
-                <a href="/homedeco-shop/products.php" class="btn btn-primary"
-                    style="padding: 10px 25px; border-radius: 30px; white-space: nowrap;">상품 둘러보기</a>
-                <a href="/homedeco-shop/login.php" class="btn btn-outline"
-                    style="padding: 10px 25px; border-radius: 30px; border-color: #2c3e50; color: #2c3e50; white-space: nowrap;">로그인/회원가입</a>
+        <section class="guest-welcome-banner">
+            <h3>🚪 처음이신가요? 가입 없이 바로 쇼핑해보세요!</h3>
+            <p>로그인 없이도 장바구니 이용 및 비회원 주문이 가능합니다.</p>
+            <div class="banner-actions">
+                <a href="/homedeco-shop/products.php" class="btn btn-primary">상품 둘러보기</a>
+                <a href="/homedeco-shop/login.php" class="btn btn-outline">로그인/회원가입</a>
             </div>
         </section>
     <?php endif; ?>
