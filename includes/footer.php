@@ -22,10 +22,10 @@ $hide_footer = in_array($current_page, $auth_pages);
                     <div class="footer-section">
                         <h4>SHOP</h4>
                         <ul>
-                            <li><a href="products.php?category_id=1">거실 (Living)</a></li>
-                            <li><a href="products.php?category_id=2">침실 (Bedroom)</a></li>
-                            <li><a href="products.php?category_id=3">주방 (Kitchen)</a></li>
-                            <li><a href="products.php?category_id=4">조명 (Lighting)</a></li>
+                            <li><a href="products.php?category=1">거실 (Living)</a></li>
+                            <li><a href="products.php?category=2">침실 (Bedroom)</a></li>
+                            <li><a href="products.php?category=3">주방 (Kitchen)</a></li>
+                            <li><a href="products.php?category=4">조명 (Lighting)</a></li>
                         </ul>
                     </div>
 
