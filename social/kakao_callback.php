@@ -73,15 +73,20 @@ if ($user_status_code != 200) {
 }
 
 $user_data = json_decode($user_response, true);
+$kakao_id = $user_data['id'] ?? ''; // 카카오 고유 번호
 $kakao_account = $user_data['kakao_account'] ?? [];
 $properties = $user_data['properties'] ?? [];
 
 $email = $kakao_account['email'] ?? '';
 $nickname = $properties['nickname'] ?? '카카오사용자';
 
+// 이메일 정보가 없는 경우 카카오 고유 ID를 활용해 가상 이메일 생성
+if (empty($email) && !empty($kakao_id)) {
+    $email = $kakao_id . "@kakao.user";
+}
+
 if (empty($email)) {
-    // 이메일 권한이 없을 경우, 카카오 개발자 센터에서 '카카오계정(이메일)' 동의 항목을 설정해야 함
-    echo "<script>alert('이메일 정보가 필요합니다. 동의항목을 확인해주세요.'); location.href='../login.php';</script>";
+    echo "<script>alert('사용자 정보를 가져올 수 없습니다. 다시 시도해주세요.'); location.href='../login.php';</script>";
     exit;
 }
 
