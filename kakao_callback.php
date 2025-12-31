@@ -3,10 +3,9 @@
 session_start();
 require_once '../includes/db.php';
 require_once '../includes/functions.php';
-require_once '../includes/social_config.php';
 
-// 설정 값 (social_config.php에서 가져옴)
-$client_id = '9d374a92aa6a9df86cbfcf5d19a756a2';
+// 설정 값 (카카오 개발자 센터에서 발급받은 키 입력 필요)
+$client_id = 'YOUR_KAKAO_REST_API_KEY'; // ★★★ 여기에 실제 REST API 키를 넣어주세요 ★★★
 $redirect_uri = 'http://localhost/homedeco-shop/social/kakao_callback.php';
 
 $code = $_GET['code'] ?? '';
