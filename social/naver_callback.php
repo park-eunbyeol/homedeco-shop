@@ -3,11 +3,11 @@
 session_start();
 require_once '../includes/db.php';
 require_once '../includes/functions.php';
-require_once '../includes/naver_api.php';
+require_once '../includes/social_config.php';
 
 // 설정 값 가져오기
-$client_id = defined('NAVER_CLIENT_ID') ? NAVER_CLIENT_ID : '9QPicDmAceT5m9YsfvkA';
-$client_secret = defined('NAVER_CLIENT_SECRET') ? NAVER_CLIENT_SECRET : 'iuJpzpqNLk';
+$client_id = NAVER_CLIENT_ID;
+$client_secret = NAVER_CLIENT_SECRET;
 
 $code = $_GET['code'] ?? '';
 $state = $_GET['state'] ?? '';
@@ -25,7 +25,7 @@ if (!$code) {
 }
 
 // 1. 액세스 토큰 발급 요청
-$redirect_uri = urlencode('http://localhost/homedeco-shop/social/naver_callback.php');
+$redirect_uri = urlencode(NAVER_REDIRECT_URI);
 $token_url = "https://nid.naver.com/oauth2.0/token?grant_type=authorization_code&client_id={$client_id}&client_secret={$client_secret}&redirect_uri={$redirect_uri}&code={$code}&state={$state}";
 
 $ch = curl_init();
@@ -70,12 +70,17 @@ if ($profile_status_code != 200) {
 $profile_data = json_decode($profile_response, true);
 $naver_user = $profile_data['response'];
 
+$naver_id = $naver_user['id'] ?? '';
 $email = $naver_user['email'] ?? '';
 $name = $naver_user['name'] ?? '네이버사용자';
-$mobile = $naver_user['mobile'] ?? '';
+
+// 이메일이 없는 경우 네이버 고유 ID로 대체 (카카오와 동일 로직)
+if (empty($email) && !empty($naver_id)) {
+    $email = $naver_id . "@naver.user";
+}
 
 if (empty($email)) {
-    echo "<script>alert('이메일 정보가 필요합니다. 동의항목을 확인해주세요.'); location.href='../login.php';</script>";
+    echo "<script>alert('사용자 정보를 가져올 수 없습니다. 다시 시도해주세요.'); location.href='../login.php';</script>";
     exit;
 }
 

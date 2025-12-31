@@ -1,10 +1,9 @@
 <?php
 // 네이버 로그인 설정
-require_once '../includes/naver_api.php';
+require_once '../includes/social_config.php';
 
-// includes/naver_api.php에 정의된 상수가 있으면 사용, 없으면 플레이스홀더 사용
-$client_id = defined('NAVER_CLIENT_ID') ? NAVER_CLIENT_ID : 'YOUR_NAVER_CLIENT_ID';
-$redirect_uri = urlencode('http://localhost/homedeco-shop/social/naver_callback.php');
+$client_id = NAVER_CLIENT_ID;
+$redirect_uri = urlencode(NAVER_REDIRECT_URI);
 $state = bin2hex(random_bytes(10)); // 보안을 위한 상태 토큰 생성
 
 // 네이버 인증 URL 생성

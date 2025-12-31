@@ -6,8 +6,8 @@ require_once '../includes/functions.php';
 require_once '../includes/social_config.php';
 
 // 설정 값 (social_config.php에서 가져옴)
-$client_id = '9d374a92aa6a9df86cbfcf5d19a756a2';
-$redirect_uri = 'http://localhost/homedeco-shop/social/kakao_callback.php';
+$client_id = KAKAO_REST_API_KEY;
+$redirect_uri = KAKAO_REDIRECT_URI;
 
 $code = $_GET['code'] ?? '';
 $error = $_GET['error'] ?? '';
