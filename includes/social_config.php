@@ -3,9 +3,9 @@
 $protocol = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') ? "https://" : "http://";
 $host = $_SERVER['HTTP_HOST'];
 
-// 현재 경로 자동 감지 (예: /homedeco-shop/social/kakao_login.php -> /homedeco-shop)
-$current_path = $_SERVER['REQUEST_URI'];
-$base_dir = (strpos($host, 'localhost') !== false) ? '/homedeco-shop' : '';
+// ghjrodf.dothome.co.kr 도메인이거나 localhost인 경우 /homedeco-shop 경로 추가
+$is_homedeco_dir = (strpos($host, 'localhost') !== false || strpos($host, 'ghjrodf.dothome.co.kr') !== false);
+$base_dir = $is_homedeco_dir ? '/homedeco-shop' : '';
 
 $base_url = $protocol . $host . $base_dir;
 

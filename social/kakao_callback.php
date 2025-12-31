@@ -77,8 +77,10 @@ $kakao_id = $user_data['id'] ?? ''; // 카카오 고유 번호
 $kakao_account = $user_data['kakao_account'] ?? [];
 $properties = $user_data['properties'] ?? [];
 
+// 닉네임 가져오기 (properties 또는 kakao_account.profile에서 확인)
+$nickname = $properties['nickname'] ?? ($kakao_account['profile']['nickname'] ?? '카카오사용자_' . substr($kakao_id, -4));
+
 $email = $kakao_account['email'] ?? '';
-$nickname = $properties['nickname'] ?? '카카오사용자';
 
 // 이메일 정보가 없는 경우 카카오 고유 ID를 활용해 가상 이메일 생성
 if (empty($email) && !empty($kakao_id)) {
